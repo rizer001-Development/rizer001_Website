@@ -4,7 +4,7 @@
   
   # rizer001_Website
   
-  ### Личный сайт rizer001 — Minecraft Developer &amp; Creator
+  ### Personal website of rizer001 — Minecraft Developer &amp; Creator
   
   <p align="center">
     <a href="https://github.com/rizer001/rizer001_Website/blob/main/LICENSE">
@@ -26,169 +26,169 @@
 
 ---
 
-## 📋 Описание
+## 📋 Overview
 
-Персональный веб-сайт с интеграцией Discord и GitHub. Содержит:
+Personal website with Discord and GitHub integration. Features:
 
-- **Блог/Новости** — публикация обновлений с синхронизацией в Discord
-- **Чат с Discord** — отправка сообщений через вебхук, история сообщений в БД
-- **GitHub активность** — логи с пагинацией, вкладками по репозиториям, отображением коммитов
-- **Админ-панель** — управление пользователями, ролями (Owner/Admin), новостями, Discord вебхуком
-- **Авторизация** — вход через GitHub OAuth
+- **Blog/News** — post updates with cross-posting to Discord
+- **Discord Chat** — send messages via webhook, message history in DB
+- **GitHub Activity** — event logs with pagination, repo tabs, commit display
+- **Admin Panel** — user management, roles (Owner/Admin), news, Discord webhook config
+- **Authentication** — login via GitHub OAuth
 
-## 🚀 Технологии
+## 🚀 Tech Stack
 
-| Технология | Версия | Назначение |
-|-----------|--------|-----------|
-| **Next.js** | 15 | React-фреймворк (App Router) |
-| **React** | 19 | UI библиотека |
-| **TypeScript** | 5 | Типизация |
-| **Tailwind CSS** | 4 | Стилизация |
+| Technology | Version | Purpose |
+|-----------|--------|---------|
+| **Next.js** | 15 | React framework (App Router) |
+| **React** | 19 | UI library |
+| **TypeScript** | 5 | Type safety |
+| **Tailwind CSS** | 4 | Styling |
 | **Prisma** | 6 | ORM (SQLite) |
-| **NextAuth** | 4 | OAuth авторизация (GitHub) |
-| **PostgreSQL** | — | База данных |
+| **NextAuth** | 4 | OAuth (GitHub) |
+| **PostgreSQL** | — | Database |
 
-## ✨ Возможности
+## ✨ Features
 
-### 🔐 Авторизация
-- Вход через GitHub OAuth
-- Система ролей: **Owner** (неснимаемый), **Admin**, **User**
-- Первый пользователь — автоматически Owner
+### 🔐 Authentication
+- GitHub OAuth login
+- Role system: **Owner** (irremovable), **Admin**, **User**
+- First user becomes Owner automatically
 
-### 👑 Админ-панель
-- **Новости** — создание, публикация, удаление
-- **Discord** — настройка Webhook URL, тестовая отправка
-- **Пользователи** — список, назначение/снятие админки
-- **GitHub логи** — активность с пагинацией и вкладками по репозиториям
+### 👑 Admin Panel
+- **News** — create, publish, delete posts
+- **Discord** — configure Webhook URL, send test messages
+- **Users** — list, assign/remove admin roles
+- **GitHub Logs** — activity feed with pagination & repo tabs
 
-### 💬 Чат / Discord
-- Превью Discord сервера (онлайн, участники)
-- Отправка сообщений через вебхук
-- История сообщений в БД (авто-очистка 24ч)
-- Динамическое КД на отправку (1с + 1с за сообщение, -1с каждые 2с)
-- Очередь сообщений (1/сек для Discord)
-- Очистка истории с подтверждением
+### 💬 Discord Chat
+- Server preview (online status, member count)
+- Send messages via webhook
+- Message history in DB (auto-cleanup after 24h)
+- Dynamic cooldown (1s base + 1s per message, -1s every 2s)
+- Send queue (1 msg/sec for Discord)
+- History purge with confirmation
 
-### 📊 GitHub активность
-- Просмотр событий (Push, Issue, PR, Release, Star, Fork)
-- Вкладки по каждому репозиторию
-- Пагинация по 10 событий
-- Отображение коммитов через Compare API
-- Индикатор лимита запросов GitHub API
+### 📊 GitHub Activity
+- Event feed (Push, Issue, PR, Release, Star, Fork)
+- Per-repository tabs
+- 10-events pagination
+- Commit messages via Compare API
+- Rate limit indicator
 
-## 🛠️ Установка и запуск
+## 🛠️ Setup
 
-### Требования
+### Prerequisites
 - Node.js 18+
-- npm или yarn
+- npm or yarn
 
-### 1. Клонирование
+### 1. Clone
 ```bash
 git clone https://github.com/rizer001/rizer001_Website.git
 cd rizer001_Website
 ```
 
-### 2. Установка зависимостей
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### 3. Настройка переменных окружения
-Создайте файл `.env` в корне проекта:
+### 3. Configure environment
+Create `.env` in the project root:
 
 ```env
-# === GitHub OAuth (обязательно) ===
-GITHUB_CLIENT_ID=ваш_гитхаб_client_id
-GITHUB_CLIENT_SECRET=ваш_гитхаб_client_secret
+# === GitHub OAuth (required) ===
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
 
-# === База данных ===
+# === Database ===
 DATABASE_URL="file:./dev.db"
 
-# === GitHub API (опционально, для коммитов в логах) ===
-GITHUB_TOKEN=ваш_гитхаб_токен
+# === GitHub API (optional, needed for commit display) ===
+GITHUB_TOKEN=your_github_token
 GITHUB_USERNAME=rizer001
 
-# === Владелец сайта ===
+# === Site owner ===
 OWNER_USERNAME=rizer001
 
-# === Discord (опционально) ===
+# === Discord (optional) ===
 DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
-DISCORD_INVITE_CODE=код_приглашения
+DISCORD_INVITE_CODE=your_invite_code
 ```
 
-### 4. Инициализация БД
+### 4. Init database
 ```bash
 npx prisma db push
 ```
 
-### 5. Запуск
+### 5. Run
 ```bash
-# Режим разработки
+# Development
 npm run dev -- -p 3003
 
-# Продакшен сборка
+# Production
 npm run build
 npm start -- -p 3003
 ```
 
-### 6. OAuth настройка
-1. Создай GitHub OAuth App: Settings → Developer settings → OAuth Apps
+### 6. OAuth setup
+1. Create a GitHub OAuth App: Settings → Developer settings → OAuth Apps
 2. Homepage URL: `http://localhost:3003`
 3. Authorization callback URL: `http://localhost:3003/api/auth/callback/github`
 
-## 🔑 Переменные окружения
+## 🔑 Environment Variables
 
-| Переменная | Обязательно | Описание |
-|-----------|------------|---------|
+| Variable | Required | Description |
+|----------|----------|-------------|
 | `GITHUB_CLIENT_ID` | ✅ | GitHub OAuth Client ID |
 | `GITHUB_CLIENT_SECRET` | ✅ | GitHub OAuth Client Secret |
-| `DATABASE_URL` | ✅ | Путь к SQLite БД (`file:./dev.db`) |
-| `OWNER_USERNAME` | ✅ | GitHub username владельца сайта |
-| `GITHUB_TOKEN` | ❌ | Токен GitHub API (для коммитов) |
-| `GITHUB_USERNAME` | ❌ | GitHub username (по умолч. rizer001) |
-| `DISCORD_WEBHOOK_URL` | ❌ | URL вебхука Discord |
-| `DISCORD_INVITE_CODE` | ❌ | Код приглашения Discord сервера |
+| `DATABASE_URL` | ✅ | SQLite path (`file:./dev.db`) |
+| `OWNER_USERNAME` | ✅ | GitHub username of the site owner |
+| `GITHUB_TOKEN` | ❌ | GitHub API token (for commit display) |
+| `GITHUB_USERNAME` | ❌ | GitHub username (default: rizer001) |
+| `DISCORD_WEBHOOK_URL` | ❌ | Discord webhook URL |
+| `DISCORD_INVITE_CODE` | ❌ | Discord server invite code |
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
 src/
 ├── app/
-│   ├── admin/          # Админ-панель
-│   ├── api/            # API роуты
-│   │   ├── admin/      # Управление настройками/пользователями
-│   │   ├── chat/       # История сообщений
-│   │   ├── discord/    # Discord интеграция
-│   │   └── github/     # GitHub активность
-│   ├── auth/           # Страницы авторизации
-│   ├── chat/           # Чат/Discord страница
-│   ├── news/           # Новости
-│   └── page.tsx        # Главная
-├── components/         # React компоненты
+│   ├── admin/          # Admin panel
+│   ├── api/            # API routes
+│   │   ├── admin/      # Settings/user management
+│   │   ├── chat/       # Message history
+│   │   ├── discord/    # Discord integration
+│   │   └── github/     # GitHub activity
+│   ├── auth/           # Auth pages
+│   ├── chat/           # Discord chat page
+│   ├── news/           # News pages
+│   └── page.tsx        # Home page
+├── components/         # React components
 │   ├── Navbar.tsx
 │   ├── ContactForm.tsx
 │   ├── GitHubProjects.tsx
 │   └── ...
-└── lib/                # Утилиты
-    ├── auth.ts         # NextAuth конфиг
-    ├── discord.ts      # Discord API
-    ├── prisma.ts       # Prisma клиент
-    └── settings.ts     # Настройки
+└── lib/                # Utilities
+    ├── auth.ts         # NextAuth config
+    ├── discord.ts      # Discord API helpers
+    ├── prisma.ts       # Prisma client
+    └── settings.ts     # Settings manager
 
 prisma/
-└── schema.prisma       # Схема БД
+└── schema.prisma       # Database schema
 ```
 
-## ⚖️ Лицензия
+## ⚖️ License
 
-Проект распространяется под лицензией **GNU Affero General Public License v3.0** (AGPLv3).
+Licensed under the **GNU Affero General Public License v3.0** (AGPLv3).
 
-Это означает:
-- ✅ Вы можете использовать, модифицировать и распространять код
-- ✅ Если вы изменяете код и запускаете его на сервере, вы обязаны公开ить изменения
-- ❌ Запрещено использовать в проприетарных проектах без открытия исходного кода
+This means:
+- ✅ You may use, modify, and redistribute the code
+- ✅ If you modify and run it on a server, you must disclose your changes
+- ❌ You may not use it in proprietary projects without open-sourcing your changes
 
-Подробнее: [LICENSE](./LICENSE)
+Full text: [LICENSE](./LICENSE)
 
 ---
 
