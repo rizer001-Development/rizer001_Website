@@ -33,17 +33,17 @@ export default async function NewsPage() {
           >
             <i className="fa-solid fa-newspaper"></i>
           </span>
-          Новости
+          News
         </h1>
         <p className="text-base mb-12" style={{ color: "var(--text-secondary)", maxWidth: "600px" }}>
-          Последние обновления проектов, анонсы и новости — синхронизируется с Discord
+          Latest project updates, announcements and news — synced with Discord
         </p>
 
         {newsList.length === 0 ? (
           <div className="text-center py-20" style={{ color: "var(--text-muted)" }}>
             <i className="fa-solid fa-newspaper text-5xl mb-4 opacity-30"></i>
-            <p className="text-lg">Новостей пока нет</p>
-            <p className="text-sm mt-2">Следи за Discord сервером — новости появятся здесь</p>
+            <p className="text-lg">No news yet</p>
+            <p className="text-sm mt-2">Follow the Discord server — news will appear here</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -58,12 +58,12 @@ export default async function NewsPage() {
                     {news.author.image && (
                       <img src={news.author.image} alt="" className="w-5 h-5 rounded-full" />
                     )}
-                    <span>{news.author.name || "Автор"}</span>
+                    <span>{news.author.name || "Author"}</span>
                     <span>·</span>
-                    <span>{new Date(news.createdAt).toLocaleDateString("ru-RU")}</span>
+                    <span>{new Date(news.createdAt).toLocaleDateString("en-US")}</span>
                   </div>
                   {news.syncedToDiscord && (
-                    <i className="fa-brands fa-discord text-xs" style={{ color: "#5865f2" }} title="Синхронизировано с Discord"></i>
+                    <i className="fa-brands fa-discord text-xs" style={{ color: "#5865f2" }} title="Synced with Discord"></i>
                   )}
                 </div>
                 <h2 className="font-bold text-lg mb-2 group-hover:gradient-text transition-all">
@@ -74,7 +74,7 @@ export default async function NewsPage() {
                   {news.content.length > 200 ? "..." : ""}
                 </p>
                 <div className="mt-4 text-xs font-semibold" style={{ color: "var(--accent-cyan)" }}>
-                  Читать далее &rarr;
+                  Read more &rarr;
                 </div>
               </Link>
             ))}

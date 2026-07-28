@@ -6,10 +6,10 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "rizer001 — Developer & Creator",
-  description: "Личный сайт rizer001 — разработчик Minecraft плагинов, модов и лаунчеров.",
+  description: "Personal website of rizer001 — Minecraft plugin, mod and launcher developer.",
   openGraph: {
     title: "rizer001 — Developer & Creator",
-    description: "Личный сайт rizer001 — разработчик Minecraft плагинов, модов и лаунчеров.",
+    description: "Personal website of rizer001 — Minecraft plugin, mod and launcher developer.",
     url: "https://github.com/rizer001",
     type: "website",
   },
@@ -21,7 +21,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"

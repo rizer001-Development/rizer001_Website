@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
  * Получить Discord Webhook URL: из БД (Setting) или .env
  */
 export async function getWebhookUrl(): Promise<string | null> {
-  // Пробуем из БД
+  // Try from DB
   try {
     const setting = await prisma.setting.findUnique({
       where: { key: "DISCORD_WEBHOOK_URL" },

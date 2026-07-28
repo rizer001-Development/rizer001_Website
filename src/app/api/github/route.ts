@@ -52,7 +52,7 @@ async function fetchRateLimit(): Promise<RateLimit | null> {
   }
 }
 
-/** Для PushEvent получаем коммиты через compare API (GitHub events API не отдаёт commits) */
+/** For PushEvent, fetch commits via compare API (GitHub events API doesn't include commits) */
 async function fetchPushCommits(repoName: string, base: string, head: string): Promise<{ commits: GHCommit[]; rawCount: number }> {
   try {
     const res = await fetch(
@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
       const minutesLeft = Math.ceil((rateLimit.reset * 1000 - Date.now()) / 60000);
       return NextResponse.json({
         error: "rate_limited",
-        message: "Достигнут лимит запросов к GitHub API. Сброс через " + minutesLeft + " мин.",
+        message: "GitHub API rate limit reached. Resets in " + minutesLeft + " min.",
         repos: [], logs: [],
         rateLimit,
       }, { status: 429 });
@@ -102,7 +102,7 @@ export async function GET(req: NextRequest) {
 
     if (!reposRes.ok) {
       if (reposRes.status === 403 || reposRes.status === 429) {
-        return NextResponse.json({ error: "rate_limited", message: "Достигнут лимит запросов к GitHub API.", repos: [], logs: [] }, { status: 429 });
+        return NextResponse.json({ error: "rate_limited", message: "GitHub API rate limit reached.", repos: [], logs: [] }, { status: 429 });
       }
       return NextResponse.json({ error: "GitHub API error", repos: [], logs: [] }, { status: reposRes.status });
     }
@@ -120,14 +120,14 @@ export async function GET(req: NextRequest) {
     const eventRes = await fetch(eventsUrl, { headers: getHeaders(), next: { revalidate: 60 } });
     if (!eventRes.ok) {
       if (eventRes.status === 403 || eventRes.status === 429) {
-        return NextResponse.json({ error: "rate_limited", message: "Достигнут лимит запросов к GitHub API.", repos: repoList, logs: [] }, { status: 429 });
+        return NextResponse.json({ error: "rate_limited", message: "GitHub API rate limit reached.", repos: repoList, logs: [] }, { status: 429 });
       }
       return NextResponse.json({ error: "GitHub API error", repos: repoList, logs: [] }, { status: eventRes.status });
     }
 
     const allEvents: GHEvent[] = await eventRes.json();
 
-    // Параллельно получаем коммиты для всех PushEvent через compare API
+    // Fetch commits for all PushEvents in parallel via compare API
     const pushEvents = allEvents.filter(
       (e) => e.type === "PushEvent" && e.payload?.head && e.payload?.before && hasToken
     );
@@ -136,13 +136,13 @@ export async function GET(req: NextRequest) {
         fetchPushCommits(e.repo?.name || "unknown", e.payload!.before!, e.payload!.head!)
       )
     );
-    // Сопоставляем результаты с событиями
+    // Map results back to events
     const pushCommitMap = new Map<string, { commits: GHCommit[]; rawCount: number }>();
     pushEvents.forEach((e, i) => {
       pushCommitMap.set(e.id, pushResults[i]);
     });
 
-    // Формируем логи
+    // Format event logs
     const logs = [];
     for (const event of allEvents) {
       const baseLog: any = {
@@ -163,7 +163,7 @@ export async function GET(req: NextRequest) {
         const commitCount = compareResult?.rawCount || 0;
         const desc = commits.length > 0
           ? commits.map((c: GHCommit) => c.message.split("\n")[0]).join(" \u00b7 ").slice(0, 200)
-          : hasToken ? "No commits" : "No commits (без токена)";
+          : hasToken ? "No commits" : "No commits (no token)";
         const compareUrl = head && before
           ? "https://github.com/" + repoName + "/compare/" + before + "..." + head
           : "https://github.com/" + repoName + "/commits";

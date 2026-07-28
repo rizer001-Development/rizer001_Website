@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Message too long (max 1000 chars)" }, { status: 400 });
     }
 
-    const discordMessage = `**📬 Новое сообщение с сайта**\n**От:** ${name}\n**Сообщение:** ${message}`;
+    const discordMessage = `**📬 New message from the site**\n**From:** ${name}\n**Message:** ${message}`;
     const sent = await sendDiscordMessage(discordMessage);
 
     if (!sent) {

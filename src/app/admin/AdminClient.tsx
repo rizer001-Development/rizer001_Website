@@ -59,19 +59,19 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
       setShowForm(false);
       setForm({ title: "", content: "", published: true });
     } catch (err) {
-      alert("Ошибка: " + (err as Error).message);
+      alert("Error: " + (err as Error).message);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Удалить новость?")) return;
+    if (!confirm("Delete news article?")) return;
     try {
       const res = await fetch(`/api/news?id=${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       setNews((prev) => prev.filter((n) => n.id !== id));
     } catch (err) {
-      alert("Ошибка: " + (err as Error).message);
+      alert("Error: " + (err as Error).message);
     }
   };
 
@@ -86,7 +86,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
       if (data.error) throw new Error(data.error);
       setNews((prev) => prev.map((n) => (n.id === item.id ? { ...n, published: !n.published } : n)));
     } catch (err) {
-      alert("Ошибка: " + (err as Error).message);
+      alert("Error: " + (err as Error).message);
     }
   };
 
@@ -96,7 +96,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-extrabold gradient-text">Админ-панель</h1>
+            <h1 className="text-3xl font-extrabold gradient-text">Admin Panel</h1>
             <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
               {adminUser.name || "Admin"}
             </p>
@@ -106,10 +106,10 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
         {/* Tabs */}
         <div className="flex gap-2 mb-8 border-b pb-4" style={{ borderColor: "var(--border-color)" }}>
           {[
-            { key: "news" as const, label: "Новости", icon: "fa-newspaper" },
+            { key: "news" as const, label: "News", icon: "fa-newspaper" },
             { key: "discord" as const, label: "Discord", icon: "fa-discord" },
-            { key: "users" as const, label: "Пользователи", icon: "fa-users" },
-            { key: "github" as const, label: "GitHub логи", icon: "fa-code-branch" },
+            { key: "users" as const, label: "Users", icon: "fa-users" },
+            { key: "github" as const, label: "GitHub Logs", icon: "fa-code-branch" },
           ].map((tab) => (
             <button
               key={tab.key}
@@ -133,7 +133,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
         {activeTab === "news" && (
           <div>
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold">Управление новостями</h2>
+              <h2 className="text-xl font-bold">Manage News</h2>
               <button
                 onClick={() => { setShowForm(!showForm); setEditing(null); }}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105"
@@ -143,7 +143,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                 }}
               >
                 <i className={`fa-solid ${showForm ? "fa-times" : "fa-plus"}`}></i>
-                {showForm ? "Отмена" : "Новая новость"}
+                {showForm ? "Cancel" : "New Article"}
               </button>
             </div>
 
@@ -155,7 +155,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                 style={{ background: "var(--bg-card)", borderColor: "var(--border-color)" }}
               >
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Заголовок</label>
+                  <label className="block text-sm font-semibold mb-2">Title</label>
                   <input
                     value={form.title}
                     onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -165,12 +165,12 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                       borderColor: "var(--border-color)",
                       color: "var(--text-primary)",
                     }}
-                    placeholder="Заголовок новости"
+                    placeholder="News title"
                     required
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Содержание</label>
+                  <label className="block text-sm font-semibold mb-2">Content</label>
                   <textarea
                     value={form.content}
                     onChange={(e) => setForm({ ...form, content: e.target.value })}
@@ -180,7 +180,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                       borderColor: "var(--border-color)",
                       color: "var(--text-primary)",
                     }}
-                    placeholder="Текст новости..."
+                    placeholder="News content..."
                     required
                   />
                 </div>
@@ -191,7 +191,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                     checked={form.published}
                     onChange={(e) => setForm({ ...form, published: e.target.checked })}
                   />
-                  <label htmlFor="published" className="text-sm">Опубликовать сразу</label>
+                  <label htmlFor="published" className="text-sm">Publish immediately</label>
                 </div>
                 <button
                   type="submit"
@@ -201,7 +201,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                     color: "#fff",
                   }}
                 >
-                  Создать
+                  Create
                 </button>
               </form>
             )}
@@ -222,7 +222,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                           className="text-xs px-2 py-0.5 rounded-full"
                           style={{ background: "rgba(245, 158, 11, 0.2)", color: "var(--accent-orange)" }}
                         >
-                          Черновик
+                          Draft
                         </span>
                       )}
                       {item.syncedToDiscord && (
@@ -230,7 +230,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                       )}
                     </div>
                     <p className="text-xs truncate" style={{ color: "var(--text-muted)" }}>
-                      {new Date(item.createdAt).toLocaleDateString("ru-RU")} · {item.author.name || "Автор"}
+                      {new Date(item.createdAt).toLocaleDateString("en-US")} · {item.author.name || "Author"}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 ml-4">
@@ -238,7 +238,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                       onClick={() => handleTogglePublish(item)}
                       className="px-4 py-1.5 rounded-full text-xs font-medium border transition-all hover:scale-105"
                       style={{ borderColor: "var(--border-color)" }}
-                      title={item.published ? "Снять с публикации" : "Опубликовать"}
+                      title={item.published ? "Unpublish" : "Publish"}
                     >
                       <i className={`fa-solid ${item.published ? "fa-eye-slash" : "fa-eye"}`}></i>
                     </button>
@@ -255,7 +255,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
 
               {news.length === 0 && (
                 <div className="text-center py-10" style={{ color: "var(--text-muted)" }}>
-                  <p>Новостей пока нет</p>
+                  <p>No news yet</p>
                 </div>
               )}
             </div>
@@ -266,7 +266,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
         {activeTab === "discord" && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold">Discord управление</h2>
+              <h2 className="text-xl font-bold">Discord Management</h2>
               <Link
                 href="/chat"
                 className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105"
@@ -276,7 +276,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                 }}
               >
                 <i className="fa-solid fa-comment"></i>
-                Открыть чат
+                Open Chat
               </Link>
             </div>
 
@@ -287,7 +287,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
             <DiscordSendPanel />
 
             {/* Recent Discord Messages */}
-            <h3 className="font-semibold mb-4 mt-8">Недавние сообщения</h3>
+            <h3 className="font-semibold mb-4 mt-8">Recent Messages</h3>
             <div className="space-y-3">
               {initialDiscordMessages.map((msg) => (
                 <div
@@ -297,20 +297,20 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
                 >
                   <p className="text-sm mb-2">{msg.content.slice(0, 200)}</p>
                   <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-                    {msg.authorName} · {new Date(msg.createdAt).toLocaleString("ru-RU")}
+                    {msg.authorName} · {new Date(msg.createdAt).toLocaleString("en-US")}
                   </p>
                 </div>
               ))}
               {initialDiscordMessages.length === 0 && (
                 <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-                  Нет сообщений. Настрой бота Discord.
+                  No messages. Set up the Discord bot.
                 </p>
               )}
             </div>
           </div>
         )}
 
-        {/* TAB: Пользователи */}
+        {/* TAB: Users */}
         {activeTab === "users" && (
           <UsersList currentUserId={adminUser.id} />
         )}
@@ -318,7 +318,7 @@ export default function AdminClient({ adminUser, initialNews, initialDiscordMess
         {/* TAB: GitHub */}
         {activeTab === "github" && (
           <div>
-            <h2 className="text-xl font-bold mb-6">GitHub активность</h2>
+            <h2 className="text-xl font-bold mb-6">GitHub Activity</h2>
             <GitHubLogs />
           </div>
         )}
@@ -381,7 +381,7 @@ function DiscordWebhookConfig() {
         Discord Webhook URL
       </h3>
       <p className="text-sm mb-4" style={{ color: "var(--text-secondary)" }}>
-        Скопируй URL вебхука из Discord канала и вставь сюда
+        Copy the webhook URL from your Discord channel and paste it here
       </p>
 
       <div className="flex gap-2 mb-4">
@@ -413,15 +413,15 @@ function DiscordWebhookConfig() {
           ) : status === "error" ? (
             <i className="fa-solid fa-xmark"></i>
           ) : (
-            "Сохранить"
+            "Save"
           )}
         </button>
       </div>
 
       <div className="text-xs space-y-1.5" style={{ color: "var(--text-muted)" }}>
-        <p>1. Зайди в Discord → Правка канала → Интеграции → Вебхуки</p>
-        <p>2. Создай вебхук → скопируй URL → вставь в поле выше → Сохранить</p>
-        <p>3. Если поле пустое — используется значение из <code className="px-1 py-0.5 rounded" style={{ background: "var(--bg-primary)" }}>.env</code></p>
+        <p>1. Go to Discord → Edit Channel → Integrations → Webhooks</p>
+        <p>2. Create a webhook → copy URL → paste above → Save</p>
+        <p>3. If empty — the value from <code className="px-1 py-0.5 rounded" style={{ background: "var(--bg-primary)" }}>.env</code> is used</p>
       </div>
     </div>
   );
@@ -463,16 +463,16 @@ function DiscordSendPanel() {
     >
       <h3 className="font-semibold mb-3 flex items-center gap-2">
         <i className="fa-solid fa-paper-plane" style={{ color: "var(--accent-cyan)" }}></i>
-        Отправить тестовое сообщение
+        Send Test Message
       </h3>
       <p className="text-sm mb-4" style={{ color: "var(--text-secondary)" }}>
-        Отправь сообщение в Discord канал через вебхук
+        Send a message to the Discord channel via webhook
       </p>
       <form onSubmit={handleSend} className="flex gap-2">
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Текст сообщения..."
+          placeholder="Message text..."
           className="flex-1 px-4 py-2.5 rounded-xl border text-sm"
           style={{
             background: "var(--bg-primary)",
@@ -499,7 +499,7 @@ function DiscordSendPanel() {
           ) : (
             <i className="fa-solid fa-paper-plane"></i>
           )}
-          <span className="ml-2">{sending ? "..." : status === "sent" ? "Ок" : status === "error" ? "Ошибка" : "Тест"}</span>
+          <span className="ml-2">{sending ? "..." : status === "sent" ? "Ok" : status === "error" ? "Error" : "Test"}</span>
         </button>
       </form>
     </div>
@@ -521,7 +521,7 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
       const data = await res.json();
       setUsers(data);
     } catch {
-      setError("Не удалось загрузить пользователей");
+      setError("Failed to load users");
     } finally {
       setLoading(false);
     }
@@ -541,14 +541,14 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
       });
       const data = await res.json();
       if (data.error) {
-        alert("Ошибка: " + data.error);
+        alert("Error: " + data.error);
         return;
       }
       setUsers((prev) =>
         prev!.map((u) => (u.id === userId ? { ...u, role: newRole } : u))
       );
     } catch {
-      alert("Не удалось изменить роль");
+      alert("Failed to change role");
     } finally {
       setChangingId(null);
     }
@@ -557,7 +557,7 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
   if (error && users === null) {
     return (
       <div>
-        <h2 className="text-xl font-bold mb-6">Управление пользователями</h2>
+        <h2 className="text-xl font-bold mb-6">User Management</h2>
         <div
           className="p-6 rounded-2xl border text-center"
           style={{ background: "var(--bg-card)", borderColor: "var(--border-color)" }}
@@ -571,7 +571,7 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
               color: "#fff",
             }}
           >
-            Попробовать снова
+            Try again
           </button>
         </div>
       </div>
@@ -581,7 +581,7 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold">Управление пользователями</h2>
+        <h2 className="text-xl font-bold">User Management</h2>
         <button
           onClick={fetchUsers}
           disabled={loading}
@@ -593,21 +593,21 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
           }}
         >
           <i className={`fa-solid ${loading ? "fa-spinner fa-spin" : "fa-rotate"}`}></i>
-          Обновить
+          Refresh
         </button>
       </div>
 
       {loading && users === null ? (
         <div className="flex items-center justify-center py-16 text-sm" style={{ color: "var(--text-muted)" }}>
           <i className="fa-solid fa-spinner fa-spin mr-2"></i>
-          Загрузка пользователей...
+          Loading users...
         </div>
       ) : users && users.length === 0 ? (
         <div
           className="p-6 rounded-2xl border text-center"
           style={{ background: "var(--bg-card)", borderColor: "var(--border-color)" }}
         >
-          <p style={{ color: "var(--text-muted)" }}>Нет пользователей</p>
+          <p style={{ color: "var(--text-muted)" }}>No users</p>
         </div>
       ) : users ? (
         <div className="space-y-2">
@@ -646,7 +646,7 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <span className="font-semibold text-sm truncate">
-                        {user.name || "Без имени"}
+                        {user.name || "No name"}
                       </span>
                       {isSelf && (
                         <span
@@ -656,14 +656,14 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
                             color: "var(--accent-cyan)",
                           }}
                         >
-                          Это ты
+                          You
                         </span>
                       )}
                     </div>
                     <div className="flex items-center gap-2 text-xs" style={{ color: "var(--text-muted)" }}>
-                      <span>{user.email || "Нет email"}</span>
+                      <span>{user.email || "No email"}</span>
                       <span>·</span>
-                      <span>{user._count?.news || 0} новостей</span>
+                      <span>{user._count?.news || 0} news</span>
                     </div>
                   </div>
 
@@ -681,8 +681,8 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
                     }}
                   >
                     {isOwner ? (
-                      <><i className="fa-solid fa-crown mr-1"></i>Владелец</>
-                    ) : isAdmin ? "Админ" : "Пользователь"}
+                      <><i className="fa-solid fa-crown mr-1"></i>Owner</>
+                    ) : isAdmin ? "Admin" : "User"}
                   </span>
                 </div>
 
@@ -696,10 +696,10 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
                         color: "var(--text-muted)",
                         border: "1px solid var(--border-color)",
                       }}
-                      title="Владелец — роль нельзя изменить"
+                      title="Owner role cannot be changed"
                     >
                       <i className="fa-solid fa-lock"></i>
-                      Владелец
+                      Owner
                     </span>
                   ) : isSelf && isAdmin ? (
                     <span
@@ -709,10 +709,10 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
                         color: "var(--text-muted)",
                         border: "1px solid var(--border-color)",
                       }}
-                      title="Нельзя снять админку с самого себя"
+                      title="Cannot remove admin from yourself"
                     >
                       <i className="fa-solid fa-lock"></i>
-                      Себя нельзя
+                      Cannot self-remove
                     </span>
                   ) : (
                     <button
@@ -736,12 +736,12 @@ function UsersList({ currentUserId }: { currentUserId: string }) {
                       ) : isAdmin ? (
                         <>
                           <i className="fa-solid fa-shield-halved"></i>
-                          Снять админку
+                          Remove admin
                         </>
                       ) : (
                         <>
                           <i className="fa-solid fa-crown"></i>
-                          Сделать админом
+                          Make admin
                         </>
                       )}
                     </button>
@@ -767,7 +767,7 @@ function GitHubLogs() {
   const [error, setError] = useState("");
   const [initialLoading, setInitialLoading] = useState(true);
 
-  // Сначала определяем функцию, потом используем её в useEffect
+  // Define function first, then use it in useEffect
   const fetchLogs = async (repo: string | null, p: number, reset: boolean) => {
     if (reset) {
       setLoading(true);
@@ -808,7 +808,7 @@ function GitHubLogs() {
       setHasMore((data.logs || []).length >= 10);
       setPage(p);
     } catch (err: any) {
-      setError(err.message || "Не удалось загрузить логи GitHub");
+      setError(err.message || "Failed to load GitHub logs");
     } finally {
       setLoading(false);
       setLoadingMore(false);
@@ -825,7 +825,7 @@ function GitHubLogs() {
     fetchLogs(activeRepo, page + 1, false);
   };
 
-  // Загружаем логи при монтировании (все, без фильтра)
+  // Load logs on mount (all, no filter)
   useEffect(() => {
     fetchLogs(null, 1, true);
   }, []);
@@ -845,7 +845,7 @@ function GitHubLogs() {
       {/* Actions */}
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-          {initialLoading ? "Загрузка..." : `${repos.length} репозиториев`}
+          {initialLoading ? "Loading..." : `${repos.length} repositories`}
         </p>
         <button
           onClick={() => switchRepo(activeRepo)}
@@ -858,7 +858,7 @@ function GitHubLogs() {
           }}
         >
           <i className={`fa-solid ${loading ? "fa-spinner fa-spin" : "fa-rotate"}`}></i>
-          {loading ? "Загрузка..." : "Обновить"}
+          {loading ? "Loading..." : "Refresh"}
         </button>
       </div>
 
@@ -880,7 +880,7 @@ function GitHubLogs() {
             }}
           >
             <i className="fa-solid fa-layer-group mr-1.5"></i>
-            Все
+            All
           </button>
           {repos.map((r: any) => (
             <button
@@ -919,7 +919,7 @@ function GitHubLogs() {
           </div>
           <div>
             <p className="text-sm font-semibold mb-1" style={{ color: "var(--accent-pink)" }}>
-              Ошибка GitHub API
+              GitHub API Error
             </p>
             <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{error}</p>
             <button
@@ -930,7 +930,7 @@ function GitHubLogs() {
                 color: "#fff",
               }}
             >
-              Попробовать снова
+              Try again
             </button>
           </div>
         </div>
@@ -940,7 +940,7 @@ function GitHubLogs() {
       {loading && logs.length === 0 && (
         <div className="flex items-center justify-center py-16 gap-2 text-sm" style={{ color: "var(--text-muted)" }}>
           <i className="fa-solid fa-spinner fa-spin"></i>
-          Загрузка активности...
+          Loading activity...
         </div>
       )}
 
@@ -1005,7 +1005,7 @@ function GitHubLogs() {
                 <p className="text-xs mt-1.5 flex items-center gap-2" style={{ color: "var(--text-muted)" }}>
                   <span className="flex items-center gap-1">
                     <i className="fa-solid fa-calendar"></i>
-                    {new Date(log.createdAt).toLocaleDateString("ru-RU")}
+                    {new Date(log.createdAt).toLocaleDateString("en-US")}
                   </span>
                   <span>·</span>
                   <span className="flex items-center gap-1">
@@ -1026,7 +1026,7 @@ function GitHubLogs() {
         <div className="text-center mt-6">
           {page > 1 && (
             <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>
-              Загружена {page}-ая страница
+              Loaded page {page}
             </p>
           )}
           {hasMore && (
@@ -1041,9 +1041,9 @@ function GitHubLogs() {
               }}
             >
               {loadingMore ? (
-                <><i className="fa-solid fa-spinner fa-spin"></i> Загрузка...</>
+                <><i className="fa-solid fa-spinner fa-spin"></i> Loading...</>
               ) : (
-                <><i className="fa-solid fa-chevron-down"></i> Сл. страница</>
+                <><i className="fa-solid fa-chevron-down"></i> Next page</>
               )}
             </button>
           )}
@@ -1062,9 +1062,9 @@ function GitHubLogs() {
           >
             <i className="fa-solid fa-code-branch"></i>
           </div>
-          <p style={{ color: "var(--text-muted)" }}>Нет активности в GitHub</p>
+          <p style={{ color: "var(--text-muted)" }}>No GitHub activity</p>
           <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
-            За последние 90 дней
+            In the last 90 days
           </p>
         </div>
       )}

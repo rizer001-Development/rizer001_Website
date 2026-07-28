@@ -46,7 +46,7 @@ export default function HomePage() {
             Minecraft Developer &amp; Creator
           </p>
           <p className="text-base mb-9" style={{ color: "var(--text-secondary)" }}>
-            Создаю плагины, моды и лаунчеры для Minecraft. Open-source энтузиаст.
+            Creating plugins, mods and launchers for Minecraft. Open-source enthusiast.
           </p>
 
           <div className="flex gap-3 justify-center flex-wrap mb-14">
@@ -59,7 +59,7 @@ export default function HomePage() {
                 boxShadow: "0 4px 15px rgba(0, 212, 255, 0.3)",
               }}
             >
-              <i className="fa-solid fa-newspaper"></i> Новости
+              <i className="fa-solid fa-newspaper"></i> News
             </Link>
             <a
               href="https://github.com/rizer001"
@@ -84,9 +84,9 @@ export default function HomePage() {
           {/* Stats */}
           <div className="flex justify-center gap-12">
             {[
-              { number: "6", label: "Проектов" },
+              { number: "6", label: "Projects" },
               { number: "100", label: "% Java" },
-              { number: "1", label: "Команда" },
+              { number: "1", label: "Team" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <span className="block text-4xl font-extrabold gradient-text">{stat.number}</span>
@@ -100,7 +100,7 @@ export default function HomePage() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce" style={{ color: "var(--text-muted)" }}>
-          <span className="text-xs">Листай вниз</span>
+          <span className="text-xs">Scroll down</span>
           <i className="fa-solid fa-chevron-down text-sm"></i>
         </div>
       </section>
@@ -119,17 +119,17 @@ export default function HomePage() {
             >
               <i className="fa-solid fa-user"></i>
             </span>
-            Обо мне
+            About me
           </h2>
           <p className="text-base mb-14" style={{ color: "var(--text-secondary)", maxWidth: "600px" }}>
-            Разработчик, который превращает идеи в код
+            A developer who turns ideas into code
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
             {[
-              { icon: "fa-cubes", title: "Minecraft разработка", desc: "Создаю плагины для Paper/Spigot серверов, моды для NeoForge и удобные инструменты." },
-              { icon: "fa-cloud-arrow-up", title: "Open Source", desc: "Все мои проекты с открытым исходным кодом на GitHub. Верю в силу сообщества." },
-              { icon: "fa-rocket", title: "Инновации", desc: "Постоянно изучаю новые технологии, чтобы создавать современные решения." },
+              { icon: "fa-cubes", title: "Minecraft Development", desc: "Creating plugins for Paper/Spigot servers, mods for NeoForge and handy tools." },
+              { icon: "fa-cloud-arrow-up", title: "Open Source", desc: "All my projects are open source on GitHub. I believe in the power of community." },
+              { icon: "fa-rocket", title: "Innovation", desc: "Always learning new technologies to build modern solutions." },
             ].map((card, i) => (
               <div key={i} className="card p-8 group">
                 <div
@@ -149,7 +149,7 @@ export default function HomePage() {
 
           {/* Skills */}
           <div>
-            <h3 className="text-xl font-bold mb-5">Технологии</h3>
+            <h3 className="text-xl font-bold mb-5">Skills</h3>
             <div className="flex flex-wrap gap-3">
               {[
                 { icon: "fa-brands fa-java", label: "Java" },
@@ -193,17 +193,17 @@ export default function HomePage() {
             >
               <i className="fa-solid fa-folder-open"></i>
             </span>
-            Проекты
+            Projects
           </h2>
           <p className="text-base mb-14" style={{ color: "var(--text-secondary)", maxWidth: "600px" }}>
-            Мои открытые проекты на GitHub
+            My open-source projects on GitHub
           </p>
 
           <GitHubProjects />
         </div>
       </section>
 
-      {/* DISCORD SECTION — теперь ссылка на /chat */}
+      {/* DISCORD SECTION — now links to /chat */}
       <section className="px-6 py-16" id="discord">
         <div className="mx-auto text-center" style={{ maxWidth: "700px" }}>
           <div className="text-5xl mb-5" style={{ color: "#5865f2" }}>
@@ -218,10 +218,10 @@ export default function HomePage() {
               backgroundClip: "text",
             }}
           >
-            Discord Сообщество
+            Discord Community
           </h2>
           <p className="text-base mb-8" style={{ color: "var(--text-secondary)" }}>
-            Заходи в чат — общайся, задавай вопросы, следи за обновлениями
+            Join the chat — talk, ask questions, follow updates
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
@@ -234,7 +234,7 @@ export default function HomePage() {
               }}
             >
               <i className="fa-solid fa-comment"></i>
-              Открыть чат
+              Open chat
             </Link>
             <a
               href="https://dsc.gg/rizer001-development"
@@ -247,7 +247,7 @@ export default function HomePage() {
               }}
             >
               <i className="fa-brands fa-discord"></i>
-              Открыть в Discord
+              Open in Discord
             </a>
           </div>
         </div>
@@ -267,17 +267,17 @@ export default function HomePage() {
             >
               <i className="fa-solid fa-link"></i>
             </span>
-            Контакты
+            Contacts
           </h2>
           <p className="text-base mb-14" style={{ color: "var(--text-secondary)", maxWidth: "600px" }}>
-            Где меня можно найти
+            Where to find me
           </p>
           <div className="flex justify-center gap-5 flex-wrap mb-16">
             {[
               { href: "https://github.com/rizer001", icon: "fa-brands fa-github", label: "GitHub" },
               { href: "https://dsc.gg/rizer001-development", icon: "fa-brands fa-discord", label: "Discord" },
               { href: "https://t.me/rizer001", icon: "fa-brands fa-telegram", label: "Telegram" },
-              { href: "https://github.com/rizer001?tab=repositories", icon: "fa-brands fa-github", label: "Все репозитории" },
+              { href: "https://github.com/rizer001?tab=repositories", icon: "fa-brands fa-github", label: "All repos" },
             ].map((link) => (
               <a
                 key={link.label}

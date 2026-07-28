@@ -4,9 +4,9 @@ export default function NotFound() {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
       <div className="text-8xl font-black mb-4 gradient-text">404</div>
-      <h1 className="text-2xl font-bold mb-3">Страница не найдена</h1>
+      <h1 className="text-2xl font-bold mb-3">Page not found</h1>
       <p className="text-base mb-8" style={{ color: "var(--text-secondary)" }}>
-        Такой страницы не существует или она была удалена
+        This page doesn&apos;t exist or has been removed
       </p>
       <Link
         href="/"
@@ -16,7 +16,7 @@ export default function NotFound() {
           color: "#fff",
         }}
       >
-        <i className="fa-solid fa-house"></i> На главную
+        <i className="fa-solid fa-house"></i> Go home
       </Link>
     </div>
   );

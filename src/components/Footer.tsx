@@ -12,22 +12,22 @@ export default function Footer() {
           <div>
             <span className="text-xl font-extrabold gradient-text">&lt;rizer001 /&gt;</span>
             <p className="mt-3 text-sm" style={{ color: "var(--text-secondary)", maxWidth: "300px" }}>
-              Minecraft Developer &amp; Creator. Open-source энтузиаст.
+              Minecraft Developer &amp; Creator. Open-source enthusiast.
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h4 className="font-bold mb-4 text-sm">Навигация</h4>
+            <h4 className="font-bold mb-4 text-sm">Navigation</h4>
             <div className="flex flex-col gap-2">
               <Link href="/" className="text-sm transition-colors hover:pl-1" style={{ color: "var(--text-muted)" }}>
-                Главная
+                Home
               </Link>
               <Link href="/news" className="text-sm transition-colors hover:pl-1" style={{ color: "var(--text-muted)" }}>
-                Новости
+                News
               </Link>
               <Link href="/#projects" className="text-sm transition-colors hover:pl-1" style={{ color: "var(--text-muted)" }}>
-                Проекты
+                Projects
               </Link>
               <Link href="/#discord" className="text-sm transition-colors hover:pl-1" style={{ color: "var(--text-muted)" }}>
                 Discord
@@ -37,7 +37,7 @@ export default function Footer() {
 
           {/* Social */}
           <div>
-            <h4 className="font-bold mb-4 text-sm">Соцсети</h4>
+            <h4 className="font-bold mb-4 text-sm">Social</h4>
             <div className="flex gap-3">
               <a
                 href="https://github.com/rizer001"
@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 border-t text-center text-xs" style={{ borderColor: "var(--border-color)", color: "var(--text-muted)" }}>
-          <p>&copy; 2026 rizer001. Сделано с <i className="fa-solid fa-heart" style={{ color: "var(--accent-pink)" }}></i> и <i className="fa-solid fa-mug-saucer" style={{ color: "var(--accent-orange)" }}></i></p>
+          <p>&copy; 2026 rizer001. Made with <i className="fa-solid fa-heart" style={{ color: "var(--accent-pink)" }}></i> and <i className="fa-solid fa-mug-saucer" style={{ color: "var(--accent-orange)" }}></i></p>
         </div>
       </div>
     </footer>

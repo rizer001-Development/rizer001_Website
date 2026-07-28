@@ -55,9 +55,9 @@ function SignInContent() {
           <i className="fa-solid fa-right-to-bracket"></i>
         </div>
 
-        <h1 className="text-2xl font-extrabold mb-2 gradient-text">Войти на сайт</h1>
+        <h1 className="text-2xl font-extrabold mb-2 gradient-text">Sign in</h1>
         <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>
-          Войди чтобы получить доступ к админ-панели
+          Sign in to access the admin panel
         </p>
 
         {error === "OAuthAccountNotLinked" && (
@@ -70,7 +70,7 @@ function SignInContent() {
             }}
           >
             <i className="fa-solid fa-triangle-exclamation mr-2"></i>
-            Этот email уже используется с другим способом входа. Войди через тот же провайдер.
+            This email is already linked to another sign-in method. Please use the same provider.
           </div>
         )}
 
@@ -78,7 +78,7 @@ function SignInContent() {
           {loading ? (
             <div className="flex items-center justify-center gap-2 py-4 text-sm" style={{ color: "var(--text-muted)" }}>
               <i className="fa-solid fa-spinner fa-spin"></i>
-              Загрузка...
+              Loading...
             </div>
           ) : providers.length === 0 ? (
             <div
@@ -90,7 +90,7 @@ function SignInContent() {
               }}
             >
               <i className="fa-solid fa-circle-exclamation mr-2"></i>
-              Авторизация не настроена. Добавь ключи в <code className="text-xs px-1 py-0.5 rounded" style={{ background: "rgba(0,0,0,0.3)" }}>.env</code>:
+              No auth providers configured. Add keys to <code className="text-xs px-1 py-0.5 rounded" style={{ background: "rgba(0,0,0,0.3)" }}>.env</code>:
               <br />
               <code className="text-xs px-1 py-0.5 rounded" style={{ background: "rgba(0,0,0,0.3)" }}>
                 DISCORD_CLIENT_ID=<wbr />...
@@ -125,14 +125,14 @@ function SignInContent() {
                 ) : (
                   <i className="fa-brands fa-github text-xl"></i>
                 )}
-                Войти через {provider.name}
+                Sign in with {provider.name}
               </button>
             ))
           )}
         </div>
 
         <p className="mt-8 text-xs" style={{ color: "var(--text-muted)" }}>
-          Вход нужен для доступа к админ-панели
+          Authentication is required to access the admin panel
         </p>
       </div>
     </div>

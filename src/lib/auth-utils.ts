@@ -9,8 +9,8 @@ export async function getSession() {
 }
 
 /**
- * Получить роль пользователя напрямую из БД (не из JWT токена).
- * Это гарантирует, что owner/admin права применяются мгновенно.
+ * Get user role directly from DB (not from JWT token).
+ * This ensures owner/admin permissions apply instantly.
  */
 async function getDbRole(userId: string | undefined): Promise<string | null> {
   if (!userId) return null;
@@ -34,7 +34,7 @@ export async function requireAdmin() {
     redirect("/");
   }
   
-  // Прямой запрос к БД — игнорируем роль из JWT токена
+  // Direct DB query — ignore role from JWT token
   const dbRole = await getDbRole(session.user.id);
   if (!dbRole || !isStaff(dbRole)) {
     redirect("/");
@@ -50,7 +50,7 @@ export async function requireAdminApi() {
     return { session: null, error: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) };
   }
   
-  // Прямой запрос к БД — игнорируем роль из JWT токена
+  // Direct DB query — ignore role from JWT token
   const dbRole = await getDbRole(session.user.id);
   if (!dbRole || !isStaff(dbRole)) {
     return { session: null, error: NextResponse.json({ error: "Forbidden" }, { status: 403 }) };

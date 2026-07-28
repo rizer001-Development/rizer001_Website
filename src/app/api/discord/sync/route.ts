@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 
       await prisma.news.create({
         data: {
-          title: firstLine || "Новость из Discord",
+          title: firstLine || "News from Discord",
           content: newsContent,
           slug,
           published: true,

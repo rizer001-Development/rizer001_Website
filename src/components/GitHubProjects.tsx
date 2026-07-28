@@ -32,7 +32,7 @@ async function getRepos() {
       .slice(0, 9)
       .map((repo: any) => ({
         name: repo.name,
-        description: repo.description || "Нет описания",
+        description: repo.description || "No description",
         url: repo.html_url,
         language: repo.language || "N/A",
         stars: repo.stargazers_count || 0,

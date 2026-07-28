@@ -13,7 +13,7 @@ export default function ContactForm() {
 
     if (!name.trim() || !message.trim()) return;
     if (message.length > 1000) {
-      setErrorText("Сообщение слишком длинное (макс. 1000 символов)");
+      setErrorText("Message too long (max 1000 characters)");
       return;
     }
 
@@ -28,7 +28,7 @@ export default function ContactForm() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Ошибка отправки");
+      if (!res.ok) throw new Error(data.error || "Failed to send");
 
       setStatus("success");
       setName("");
@@ -36,7 +36,7 @@ export default function ContactForm() {
       setTimeout(() => setStatus("idle"), 3000);
     } catch (err) {
       setStatus("error");
-      setErrorText(err instanceof Error ? err.message : "Ошибка отправки");
+      setErrorText(err instanceof Error ? err.message : "Failed to send");
     }
   };
 
@@ -45,9 +45,9 @@ export default function ContactForm() {
       className="max-w-lg mx-auto p-8 rounded-2xl border"
       style={{ background: "var(--bg-card)", borderColor: "var(--border-color)" }}
     >
-      <h3 className="text-lg font-bold mb-2">Написать мне</h3>
+      <h3 className="text-lg font-bold mb-2">Send me a message</h3>
       <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
-        Сообщение придёт в мой Discord канал
+        Your message will be sent to my Discord channel
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -61,7 +61,7 @@ export default function ContactForm() {
               borderColor: "var(--border-color)",
               color: "var(--text-primary)",
             }}
-            placeholder="Ваше имя"
+            placeholder="Your name"
             required
             maxLength={50}
             disabled={status === "sending"}
@@ -77,7 +77,7 @@ export default function ContactForm() {
               borderColor: "var(--border-color)",
               color: "var(--text-primary)",
             }}
-            placeholder="Ваше сообщение..."
+            placeholder="Your message..."
             required
             maxLength={1000}
             disabled={status === "sending"}
@@ -102,10 +102,10 @@ export default function ContactForm() {
             color: "#fff",
           }}
         >
-          {status === "sending" && <span className="flex items-center justify-center gap-2"><i className="fa-solid fa-spinner fa-spin"></i> Отправка...</span>}
-          {status === "success" && <span className="flex items-center justify-center gap-2"><i className="fa-solid fa-check"></i> Отправлено!</span>}
-          {status === "idle" && <span className="flex items-center justify-center gap-2"><i className="fa-brands fa-discord"></i> Отправить</span>}
-          {status === "error" && <span className="flex items-center justify-center gap-2"><i className="fa-solid fa-rotate"></i> Попробовать снова</span>}
+          {status === "sending" && <span className="flex items-center justify-center gap-2"><i className="fa-solid fa-spinner fa-spin"></i> Sending...</span>}
+          {status === "success" && <span className="flex items-center justify-center gap-2"><i className="fa-solid fa-check"></i> Sent!</span>}
+          {status === "idle" && <span className="flex items-center justify-center gap-2"><i className="fa-brands fa-discord"></i> Send</span>}
+          {status === "error" && <span className="flex items-center justify-center gap-2"><i className="fa-solid fa-rotate"></i> Try again</span>}
         </button>
       </form>
     </div>

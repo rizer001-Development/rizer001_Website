@@ -19,7 +19,7 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
           className="inline-flex items-center gap-2 text-sm font-semibold mb-8 transition-colors hover:gap-3"
           style={{ color: "var(--accent-cyan)" }}
         >
-          <i className="fa-solid fa-arrow-left"></i> Назад к новостям
+          <i className="fa-solid fa-arrow-left"></i> Back to news
         </Link>
 
         <article>
@@ -27,9 +27,9 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
             {news.author.image && (
               <img src={news.author.image} alt="" className="w-6 h-6 rounded-full" />
             )}
-            <span>{news.author.name || "Автор"}</span>
+            <span>{news.author.name || "Author"}</span>
             <span>·</span>
-            <time>{new Date(news.createdAt).toLocaleDateString("ru-RU", {
+            <time>{new Date(news.createdAt).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
@@ -37,7 +37,7 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
             {news.syncedToDiscord && (
               <>
                 <span>·</span>
-                <i className="fa-brands fa-discord" style={{ color: "#5865f2" }} title="Синхронизировано с Discord"></i>
+                <i className="fa-brands fa-discord" style={{ color: "#5865f2" }} title="Synced with Discord"></i>
               </>
             )}
           </div>

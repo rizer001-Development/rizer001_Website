@@ -6,24 +6,24 @@ import { Suspense } from "react";
 
 const errors: Record<string, { title: string; description: string }> = {
   OAuthAccountNotLinked: {
-    title: "Аккаунт не привязан",
-    description: "Этот email уже используется с другим способом входа. Войди через тот же провайдер.",
+    title: "Account not linked",
+    description: "This email is already used with another sign-in method. Please sign in with the same provider.",
   },
   OAuthSignin: {
-    title: "Ошибка входа",
-    description: "Не удалось войти через выбранный сервис. Попробуй снова.",
+    title: "Sign-in failed",
+    description: "Could not sign in with the selected service. Please try again.",
   },
   OAuthCallback: {
-    title: "Ошибка подтверждения",
-    description: "Что-то пошло не так при подтверждении входа. Попробуй ещё раз.",
+    title: "Callback error",
+    description: "Something went wrong during sign-in confirmation. Please try again.",
   },
   AccessDenied: {
-    title: "Доступ запрещён",
-    description: "У тебя нет доступа к этому ресурсу.",
+    title: "Access denied",
+    description: "You don't have permission to access this resource.",
   },
   default: {
-    title: "Ошибка авторизации",
-    description: "Произошла неизвестная ошибка. Попробуй войти снова.",
+    title: "Authentication error",
+    description: "An unknown error occurred. Please try signing in again.",
   },
 };
 
@@ -74,7 +74,7 @@ function ErrorContent() {
           }}
         >
           <i className="fa-solid fa-arrow-left"></i>
-          Попробовать снова
+          Try again
         </Link>
       </div>
     </div>

@@ -14,7 +14,7 @@ export default function GitHubProjectsClient({ repos }: { repos: Repo[] | null }
     return (
       <div className="text-center py-10" style={{ color: "var(--text-muted)" }}>
         <p className="mb-4"><i className="fa-solid fa-triangle-exclamation text-2xl" style={{ color: "var(--accent-orange)" }}></i></p>
-        <p className="mb-3">Не удалось загрузить проекты</p>
+        <p className="mb-3">Failed to load projects</p>
         <a
           href="https://github.com/rizer001"
           target="_blank"
@@ -22,14 +22,14 @@ export default function GitHubProjectsClient({ repos }: { repos: Repo[] | null }
           className="inline-block font-semibold"
           style={{ color: "var(--accent-cyan)" }}
         >
-          Смотреть на GitHub &rarr;
+          View on GitHub &rarr;
         </a>
       </div>
     );
   }
 
   if (!repos.length) {
-    return <p style={{ color: "var(--text-muted)" }}>Проекты не найдены</p>;
+    return <p style={{ color: "var(--text-muted)" }}>No projects found</p>;
   }
 
   return (
@@ -67,7 +67,7 @@ export default function GitHubProjectsClient({ repos }: { repos: Repo[] | null }
               {repo.language}
             </span>
             <span className="text-xs font-semibold group-hover:underline" style={{ color: "var(--accent-cyan)" }}>
-              Подробнее &rarr;
+              Details &rarr;
             </span>
           </div>
         </a>

@@ -47,9 +47,9 @@ function LoginRequired() {
           <i className="fa-solid fa-lock"></i>
         </div>
 
-        <h1 className="text-2xl font-extrabold mb-2 gradient-text">Доступ запрещён</h1>
+        <h1 className="text-2xl font-extrabold mb-2 gradient-text">Access Denied</h1>
         <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>
-          Чтобы войти в админ-панель, нужно <strong>авторизоваться</strong>
+          You need to <strong>sign in</strong> to access the admin panel
         </p>
 
         <Link
@@ -62,12 +62,12 @@ function LoginRequired() {
           }}
         >
           <i className="fa-brands fa-github"></i>
-          Войти через GitHub
+          Sign in with GitHub
         </Link>
 
         <p className="mt-6 text-xs" style={{ color: "var(--text-muted)" }}>
           <Link href="/" className="hover:underline" style={{ color: "var(--accent-cyan)" }}>
-            Вернуться на главную
+            Back to home
           </Link>
         </p>
       </div>
@@ -103,10 +103,10 @@ function NotAdmin() {
         </div>
 
         <h1 className="text-2xl font-extrabold mb-2" style={{ color: "var(--accent-pink)" }}>
-          Не админ
+          Not Admin
         </h1>
         <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>
-          У тебя нет прав администратора для доступа к этой странице
+          You don't have admin rights to access this page
         </p>
 
         <Link
@@ -118,7 +118,7 @@ function NotAdmin() {
           }}
         >
           <i className="fa-solid fa-arrow-left"></i>
-          На главную
+          Back to home
         </Link>
       </div>
     </div>
@@ -133,7 +133,7 @@ export default async function AdminPage() {
     return <LoginRequired />;
   }
 
-  // Прямой запрос к БД чтобы получить актуальную роль (не из JWT токена!)
+  // Direct DB query to get current role (not from JWT token!)
   const dbUser = await prisma.user.findUnique({
     where: { id: session.user.id },
     select: { role: true },

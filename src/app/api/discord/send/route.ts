@@ -4,14 +4,14 @@ import { authOptions } from "@/lib/auth";
 import { getWebhookUrl } from "@/lib/discord";
 import { prisma } from "@/lib/prisma";
 
-// Глобальная очередь: считаем сколько сообщений было отправлено за последнюю секунду
+// Global queue: count how many messages were sent in the last second
 const sendTimestamps: number[] = [];
 const QUEUE_WINDOW_MS = 1000;
-const MAX_PER_WINDOW = 1; // 1 сообщение в секунду
+const MAX_PER_WINDOW = 1; // 1 message per second
 
 function getQueueDepth(): number {
   const now = Date.now();
-  // Удаляем старые записи
+  // Remove old timestamps
   while (sendTimestamps.length > 0 && sendTimestamps[0] < now - QUEUE_WINDOW_MS) {
     sendTimestamps.shift();
   }
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Message too long (max 2000 chars)" }, { status: 400 });
     }
 
-    // Сохраняем в БД ВСЕГДА (даже если очередь забита)
+    // Always save to DB (even if queue is full)
     const chatMessage = await prisma.chatMessage.create({
       data: {
         authorId: session.user.id,
@@ -44,10 +44,10 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Считаем общее кол-во сообщений
+    // Count total messages
     const totalCount = await prisma.chatMessage.count();
 
-    // Отправляем в Discord с учётом очереди (1 сообщение в секунду)
+    // Send to Discord with queue rate limiting (1 msg/sec)
     const queueDepth = getQueueDepth();
     if (queueDepth < MAX_PER_WINDOW) {
       sendTimestamps.push(Date.now());
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET /api/discord/send — получить текущую глубину очереди
+// GET /api/discord/send — get current queue depth
 export async function GET() {
   return NextResponse.json({ queueDepth: getQueueDepth() });
 }

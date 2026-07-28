@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireAdminApi } from "@/lib/auth-utils";
 
-// GET /api/admin/users — список всех пользователей (только для админов)
+// GET /api/admin/users — list all users (admin only)
 export async function GET() {
   const { error } = await requireAdminApi();
   if (error) return error;
@@ -31,7 +31,7 @@ export async function GET() {
   }
 }
 
-// PUT /api/admin/users — изменить роль пользователя (только для админов)
+// PUT /api/admin/users — change user role (admin only)
 export async function PUT(req: NextRequest) {
   const { session, error } = await requireAdminApi();
   if (error) return error;
@@ -49,18 +49,18 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // 🛡️ НЕЛЬЗЯ изменить роль owner (неснимаемый)
+    // 🛡️ Cannot modify owner role (non-removable)
     if (targetUser.role === "owner") {
       return NextResponse.json(
-        { error: "Нельзя изменить роль владельца сайта" },
+        { error: "Cannot change the site owner's role" },
         { status: 403 }
       );
     }
 
-    // 🛡️ НЕЛЬЗЯ снять админку с самого себя
+    // 🛡️ Cannot remove admin from yourself
     if (userId === session.user.id && role !== "admin") {
       return NextResponse.json(
-        { error: "Нельзя снять права администратора с самого себя" },
+        { error: "Cannot remove admin rights from yourself" },
         { status: 403 }
       );
     }

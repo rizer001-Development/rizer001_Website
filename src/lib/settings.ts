@@ -21,7 +21,7 @@ export async function getDiscordWebhookUrl(): Promise<string | null> {
 }
 
 /**
- * Сохранить настройку в БД
+ * Save setting to DB
  */
 export async function setSetting(key: string, value: string): Promise<void> {
   await prisma.setting.upsert({

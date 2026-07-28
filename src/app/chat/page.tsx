@@ -35,18 +35,18 @@ export default function ChatPage() {
   const [showPurgeModal, setShowPurgeModal] = useState(false);
   const [purgeConfirmed, setPurgeConfirmed] = useState(false);
   const [purging, setPurging] = useState(false);
-  const [cooldown, setCooldown] = useState(1); // Минимальное КД = 1с
+  const [cooldown, setCooldown] = useState(1); // Minimum cooldown = 1s
   const [queueDepth, setQueueDepth] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const DISCORD_INVITE = "https://dsc.gg/rizer001-development";
   const isAdmin = session?.user?.role === "admin";
 
-  // Cooldown timer: every 2s КД уменьшается на 1
+  // Cooldown timer: every 2s cooldown decreases by 1
   useEffect(() => {
     if (cooldown <= 0) return;
     const interval = setInterval(() => {
-      setCooldown((prev) => Math.max(1, prev - 1)); // Минимум 1с
+      setCooldown((prev) => Math.max(1, prev - 1)); // Minimum 1s
     }, 2000);
     return () => clearInterval(interval);
   }, [cooldown > 0]);
@@ -81,7 +81,7 @@ export default function ChatPage() {
       setMessages(Array.isArray(data.messages) ? data.messages : []);
       setTotalCount(data.totalCount ?? 0);
     } catch {
-      setError("Не удалось загрузить сообщения");
+      setError("Failed to load messages");
     } finally {
       setLoading(false);
     }
@@ -116,7 +116,7 @@ export default function ChatPage() {
       const data = await res.json();
 
       if (data.queued) {
-        // Сообщение в очереди
+        // Message queued
         setQueueDepth(data.queueDepth ?? 1);
         setSendStatus("sent");
         setInput("");
@@ -129,7 +129,7 @@ export default function ChatPage() {
         setInput("");
         setTimeout(() => setSendStatus("idle"), 3000);
 
-        // Добавляем КД: +1 сек за каждое отправленное сообщение (минимум 1)
+        // Add cooldown: +1s per sent message (minimum 1)
         setCooldown((prev) => prev + 1);
       }
     } catch {
@@ -151,7 +151,7 @@ export default function ChatPage() {
       setShowPurgeModal(false);
       setPurgeConfirmed(false);
     } catch {
-      alert("Не удалось очистить историю");
+      alert("Failed to clear history");
     } finally {
       setPurging(false);
     }
@@ -162,11 +162,11 @@ export default function ChatPage() {
     const now = new Date();
     const diff = now.getTime() - d.getTime();
     const mins = Math.floor(diff / 60000);
-    if (mins < 1) return "только что";
-    if (mins < 60) return `${mins} мин. назад`;
+    if (mins < 1) return "just now";
+    if (mins < 60) return `${mins} min ago`;
     const hours = Math.floor(mins / 60);
-    if (hours < 24) return `${hours} ч. назад`;
-    return d.toLocaleDateString("ru-RU", { day: "numeric", month: "short" });
+    if (hours < 24) return `${hours}h ago`;
+    return d.toLocaleDateString("en-US", { day: "numeric", month: "short" });
   };
 
   return (
@@ -185,9 +185,9 @@ export default function ChatPage() {
             <i className="fa-brands fa-discord"></i>
           </div>
           <div>
-            <h1 className="text-3xl font-extrabold gradient-text">Дискорд</h1>
+            <h1 className="text-3xl font-extrabold gradient-text">Discord</h1>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-              Сообщество rizer001 — история сообщений
+              rizer001 community — message history
             </p>
           </div>
           <a
@@ -200,7 +200,7 @@ export default function ChatPage() {
               boxShadow: "0 4px 15px rgba(88,101,242,0.3)",
             }}
           >
-            <i className="fa-brands fa-discord"></i> Присоединиться
+            <i className="fa-brands fa-discord"></i> Join
           </a>
         </div>
 
@@ -228,17 +228,17 @@ export default function ChatPage() {
                       border: "1px solid", borderColor: previewLoading ? "var(--border-color)" : preview?.configured && preview?.online ? "rgba(16,185,129,0.25)" : preview?.configured && !preview?.online ? "rgba(239,68,68,0.25)" : "var(--border-color)",
                     }}
                   >
-                    {previewLoading ? (<><i className="fa-solid fa-spinner fa-spin text-[10px]"></i> Проверка...</>)
-                    : preview?.configured && preview?.online ? (<><i className="fa-solid fa-circle text-[8px]"></i> Онлайн</>)
-                    : preview?.configured && !preview?.online ? (<><i className="fa-solid fa-circle text-[8px]"></i> Недоступен</>)
-                    : (<><i className="fa-solid fa-minus text-[8px]"></i> Не настроен</>)}
+                    {previewLoading ? (<><i className="fa-solid fa-spinner fa-spin text-[10px]"></i> Checking...</>)
+                    : preview?.configured && preview?.online ? (<><i className="fa-solid fa-circle text-[8px]"></i> Online</>)
+                    : preview?.configured && !preview?.online ? (<><i className="fa-solid fa-circle text-[8px]"></i> Unavailable</>)
+                    : (<><i className="fa-solid fa-minus text-[8px]"></i> Not configured</>)}
                   </span>
                 </div>
                 {preview?.description && <p className="text-sm mb-2 line-clamp-1" style={{ color: "var(--text-secondary)" }}>{preview.description}</p>}
                 <div className="flex items-center gap-4 text-sm" style={{ color: "var(--text-muted)" }}>
                   <span className="flex items-center gap-1.5"><i className="fa-solid fa-user-group text-xs"></i>{previewLoading ? <span>...</span> : <span>{preview?.memberCount || 0}</span>}</span>
-                  {preview?.configured && <span className="flex items-center gap-1.5"><i className="fa-solid fa-signal text-xs" style={{ color: preview?.online ? "var(--accent-green)" : undefined }}></i>{previewLoading ? <span>...</span> : <span>{preview?.onlineCount || 0} онлайн</span>}</span>}
-                  <span className="hidden sm:flex items-center gap-1.5 ml-auto"><i className="fa-solid fa-arrow-up-right-from-square text-xs"></i> Открыть в Discord</span>
+                  {preview?.configured && <span className="flex items-center gap-1.5"><i className="fa-solid fa-signal text-xs" style={{ color: preview?.online ? "var(--accent-green)" : undefined }}></i>{previewLoading ? <span>...</span> : <span>{preview?.onlineCount || 0} online</span>}</span>}
+                  <span className="hidden sm:flex items-center gap-1.5 ml-auto"><i className="fa-solid fa-arrow-up-right-from-square text-xs"></i> Open in Discord</span>
                 </div>
               </div>
             </div>
@@ -256,7 +256,7 @@ export default function ChatPage() {
               <div className="flex items-center justify-between px-5 py-3 border-b" style={{ borderColor: "var(--border-color)" }}>
                 <span className="text-sm font-semibold flex items-center gap-2">
                   <i className="fa-solid fa-hashtag text-xs" style={{ color: "var(--text-muted)" }}></i>
-                  история сообщений
+                  message history
                 </span>
                 <div className="flex items-center gap-2">
                   {isAdmin && messages.length > 0 && (
@@ -266,7 +266,7 @@ export default function ChatPage() {
                       style={{ background: "rgba(236,72,153,0.08)", color: "var(--accent-pink)", border: "1px solid rgba(236,72,153,0.2)" }}
                     >
                       <i className="fa-solid fa-trash-can mr-1"></i>
-                      Очистить
+                      Clear
                     </button>
                   )}
                   <button
@@ -275,7 +275,7 @@ export default function ChatPage() {
                     style={{ background: "var(--bg-primary)", color: "var(--text-muted)", border: "1px solid var(--border-color)" }}
                   >
                     <i className="fa-solid fa-rotate mr-1"></i>
-                    Обновить
+                    Refresh
                   </button>
                 </div>
               </div>
@@ -283,7 +283,7 @@ export default function ChatPage() {
               <div className="divide-y" style={{ borderColor: "var(--border-color)" }}>
                 {loading ? (
                   <div className="flex items-center justify-center gap-2 py-16 text-sm" style={{ color: "var(--text-muted)" }}>
-                    <i className="fa-solid fa-spinner fa-spin"></i> Загрузка сообщений...
+                    <i className="fa-solid fa-spinner fa-spin"></i> Loading messages...
                   </div>
                 ) : error ? (
                   <div className="py-16 text-center">
@@ -292,7 +292,7 @@ export default function ChatPage() {
                     </div>
                     <p className="text-sm mb-4" style={{ color: "var(--text-muted)" }}>{error}</p>
                     <button onClick={fetchMessages} className="px-5 py-2 rounded-full text-sm font-medium transition-all hover:scale-105" style={{ background: "linear-gradient(135deg, var(--accent-cyan), var(--accent-purple))", color: "#fff" }}>
-                      Попробовать снова
+                      Try again
                     </button>
                   </div>
                 ) : messages.length === 0 ? (
@@ -300,8 +300,8 @@ export default function ChatPage() {
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl" style={{ background: "rgba(0,212,255,0.1)", color: "var(--accent-cyan)" }}>
                       <i className="fa-solid fa-comment-slash"></i>
                     </div>
-                    <p className="text-sm" style={{ color: "var(--text-muted)" }}>Сообщений пока нет</p>
-                    <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>Отправь первое сообщение!</p>
+                    <p className="text-sm" style={{ color: "var(--text-muted)" }}>No messages yet</p>
+                    <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>Send the first message!</p>
                   </div>
                 ) : (
                   messages.map((msg) => (
@@ -335,7 +335,7 @@ export default function ChatPage() {
               {session ? (
                 <>
                   <form onSubmit={handleSend} className="flex gap-3">
-                    <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Напиши сообщение..." maxLength={2000}
+                    <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Write a message..." maxLength={2000}
                       className="flex-1 px-4 py-3 rounded-xl border text-sm outline-none transition-all focus:border-[var(--accent-cyan)]"
                       style={{ background: "var(--bg-primary)", borderColor: "var(--border-color)", color: "var(--text-primary)" }}
                       disabled={sending || cooldown > 0} />
@@ -350,7 +350,7 @@ export default function ChatPage() {
                       : cooldown > 0 ? <i className="fa-solid fa-hourglass-half"></i>
                       : <i className="fa-solid fa-paper-plane"></i>}
                       <span className="ml-2 hidden sm:inline">
-                        {sending ? "Отправка..." : sendStatus === "sent" ? "Отправлено" : sendStatus === "error" ? "Ошибка" : cooldown > 0 ? `${cooldown}с` : "Отправить"}
+                        {sending ? "Sending..." : sendStatus === "sent" ? "Sent" : sendStatus === "error" ? "Error" : cooldown > 0 ? `${cooldown}s` : "Send"}
                       </span>
                     </button>
                   </form>
@@ -361,11 +361,11 @@ export default function ChatPage() {
                       <i className={`fa-solid ${cooldown > 1 ? "fa-hourglass-half" : "fa-circle"}`}
                         style={{ color: cooldown > 1 ? "var(--accent-orange)" : "var(--accent-green)" }}>
                       </i>
-                      КД: {cooldown > 1 ? `${cooldown}с` : "1с"}
+                      CD: {cooldown > 1 ? `${cooldown}s` : "1s"}
                     </span>
                     <span className="flex items-center gap-1.5">
                       <i className="fa-solid fa-list-ol" style={{ color: queueDepth > 0 ? "var(--accent-cyan)" : undefined }}></i>
-                      Очередь: {queueDepth}
+                      Queue: {queueDepth}
                     </span>
                   </div>
                 </>
@@ -373,11 +373,11 @@ export default function ChatPage() {
                 <div className="text-center py-3">
                   <p className="text-sm mb-2" style={{ color: "var(--text-secondary)" }}>
                     <i className="fa-solid fa-lock mr-2" style={{ color: "var(--accent-cyan)" }}></i>
-                    Войди через GitHub чтобы отправлять сообщения
+                    Sign in with GitHub to send messages
                   </p>
                   <Link href="/auth/signin" className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all hover:scale-105"
                     style={{ background: "#24292f", color: "#fff" }}>
-                    <i className="fa-brands fa-github"></i> Войти через GitHub
+                    <i className="fa-brands fa-github"></i> Sign in with GitHub
                   </Link>
                 </div>
               )}
@@ -389,13 +389,13 @@ export default function ChatPage() {
             <div className="rounded-2xl border p-6" style={{ background: "var(--bg-card)", borderColor: "var(--border-color)" }}>
               <div className="text-4xl mb-4" style={{ color: "#5865f2" }}><i className="fa-brands fa-discord"></i></div>
               <h3 className="text-xl font-extrabold mb-3" style={{ background: "linear-gradient(135deg, #5865f2, var(--accent-purple))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                Discord Сервер
+                Discord Server
               </h3>
               <p className="text-sm mb-5 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                Присоединяйся к серверу! Обсуждаем разработку, Minecraft, проекты и просто общаемся.
+                Join the server! We discuss development, Minecraft, projects, and just hang out.
               </p>
               <div className="space-y-2.5 mb-6">
-                {[{ icon: "fa-headset", text: "Поддержка по проектам" }, { icon: "fa-bullhorn", text: "Обновления и анонсы" }, { icon: "fa-comments", text: "Общение с разработчиком" }, { icon: "fa-flask", text: "Тестирование новых функций" }]
+                {[{ icon: "fa-headset", text: "Project support" }, { icon: "fa-bullhorn", text: "Updates & announcements" }, { icon: "fa-comments", text: "Chat with the developer" }, { icon: "fa-flask", text: "Test new features" }]
                   .map((f) => (
                     <div key={f.text} className="flex items-center gap-3 text-sm" style={{ color: "var(--text-secondary)" }}>
                       <i className={`fa-solid ${f.icon}`} style={{ color: "#5865f2", width: "16px" }}></i>
@@ -406,7 +406,7 @@ export default function ChatPage() {
               <a href={DISCORD_INVITE} target="_blank" rel="noopener"
                 className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full text-sm font-bold transition-all hover:scale-105"
                 style={{ background: "#5865f2", color: "#fff", boxShadow: "0 4px 15px rgba(88,101,242,0.4)" }}>
-                <i className="fa-brands fa-discord"></i> Присоединиться
+                <i className="fa-brands fa-discord"></i> Join
               </a>
             </div>
 
@@ -414,30 +414,30 @@ export default function ChatPage() {
             <div className="rounded-2xl border p-6" style={{ background: "var(--bg-card)", borderColor: "var(--border-color)" }}>
               <h4 className="text-sm font-semibold mb-4 flex items-center gap-2">
                 <i className="fa-solid fa-chart-simple" style={{ color: "var(--accent-cyan)" }}></i>
-                Статистика
+                Statistics
               </h4>
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-sm">
-                  <span style={{ color: "var(--text-secondary)" }}>Отправлено сообщений</span>
+                  <span style={{ color: "var(--text-secondary)" }}>Messages sent</span>
                   <span className="font-bold gradient-text">{totalCount}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span style={{ color: "var(--text-secondary)" }}>Показано</span>
+                  <span style={{ color: "var(--text-secondary)" }}>Showing</span>
                   <span className="font-bold text-xs" style={{ color: "var(--text-muted)" }}>{messages.length}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span style={{ color: "var(--text-secondary)" }}>Сервер</span>
+                  <span style={{ color: "var(--text-secondary)" }}>Server</span>
                   <span className="font-bold text-xs" style={{ color: "var(--text-muted)" }}>
                     {previewLoading ? <span>...</span>
-                    : preview?.configured && preview?.online ? <span style={{ color: "var(--accent-green)" }}>Доступен</span>
-                    : preview?.configured && !preview?.online ? <span style={{ color: "var(--accent-pink)" }}>Недоступен</span>
-                    : <span>Не настроен</span>}
+                    : preview?.configured && preview?.online ? <span style={{ color: "var(--accent-green)" }}>Available</span>
+                    : preview?.configured && !preview?.online ? <span style={{ color: "var(--accent-pink)" }}>Unavailable</span>
+                    : <span>Not configured</span>}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span style={{ color: "var(--text-secondary)" }}>Вебхук</span>
+                  <span style={{ color: "var(--text-secondary)" }}>Webhook</span>
                   <span className="font-bold text-xs" style={{ color: "var(--text-muted)" }}>
-                    {totalCount > 0 ? <span style={{ color: "var(--accent-green)" }}>Активен</span> : "Не настроен"}
+                    {totalCount > 0 ? <span style={{ color: "var(--accent-green)" }}>Active</span> : "Not configured"}
                   </span>
                 </div>
               </div>
@@ -451,7 +451,7 @@ export default function ChatPage() {
                 style={{ borderColor: "rgba(236,72,153,0.3)", color: "var(--accent-pink)" }}
               >
                 <i className="fa-solid fa-trash-can"></i>
-                Очистить историю
+                Clear history
               </button>
             )}
           </div>
@@ -476,10 +476,10 @@ export default function ChatPage() {
             </div>
 
             <h2 className="text-xl font-extrabold text-center mb-2" style={{ color: "var(--accent-pink)" }}>
-              Очистить историю?
+              Clear history?
             </h2>
             <p className="text-sm text-center mb-6" style={{ color: "var(--text-secondary)" }}>
-              Это действие нельзя отменить
+              This action cannot be undone
             </p>
 
             {/* What will be deleted */}
@@ -489,20 +489,20 @@ export default function ChatPage() {
             >
               <p className="text-xs font-semibold flex items-center gap-2" style={{ color: "var(--text-muted)" }}>
                 <i className="fa-solid fa-list"></i>
-                Будут удалены:
+                Will be deleted:
               </p>
               <div className="space-y-1.5 text-sm">
                 <div className="flex items-center justify-between">
-                  <span style={{ color: "var(--text-secondary)" }}>Сообщений в истории</span>
+                  <span style={{ color: "var(--text-secondary)" }}>Messages in history</span>
                   <span className="font-bold" style={{ color: "var(--accent-pink)" }}>{totalCount}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span style={{ color: "var(--text-secondary)" }}>Статистика отправленных</span>
-                  <span className="font-bold" style={{ color: "var(--accent-pink)" }}>Сбросится</span>
+                  <span style={{ color: "var(--text-secondary)" }}>Send statistics</span>
+                  <span className="font-bold" style={{ color: "var(--accent-pink)" }}>Will be reset</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span style={{ color: "var(--text-secondary)" }}>Сообщения в Discord</span>
-                  <span style={{ color: "var(--text-muted)" }}>Не изменятся</span>
+                  <span style={{ color: "var(--text-secondary)" }}>Discord messages</span>
+                  <span style={{ color: "var(--text-muted)" }}>Unaffected</span>
                 </div>
               </div>
             </div>
@@ -516,7 +516,7 @@ export default function ChatPage() {
                 className="mt-0.5 w-4 h-4 rounded accent-[var(--accent-pink)]"
               />
               <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                Я понимаю, что {totalCount} сообщ{totalCount === 1 ? "ие" : totalCount < 5 ? "ия" : "ий"} будут безвозвратно удалены, и статистика сбросится
+                I understand that {totalCount} message{totalCount !== 1 ? "s" : ""} will be permanently deleted and statistics will be reset
               </span>
             </label>
 
@@ -527,7 +527,7 @@ export default function ChatPage() {
                 className="flex-1 py-3 rounded-full text-sm font-semibold transition-all hover:scale-105"
                 style={{ background: "var(--bg-primary)", color: "var(--text-secondary)", border: "1px solid var(--border-color)" }}
               >
-                Отмена
+                Cancel
               </button>
               <button
                 onClick={handlePurge}
@@ -539,7 +539,7 @@ export default function ChatPage() {
                   border: !purgeConfirmed ? "1px solid var(--border-color)" : "none",
                 }}
               >
-                {purging ? <><i className="fa-solid fa-spinner fa-spin mr-2"></i>Очистка...</> : "Очистить"}
+                {purging ? <><i className="fa-solid fa-spinner fa-spin mr-2"></i>Clearing...</> : "Clear"}
               </button>
             </div>
           </div>

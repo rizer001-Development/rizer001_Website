@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 
-// GET /api/discord/preview — получает информацию о Discord сервере
+// GET /api/discord/preview — get Discord server info
 export async function GET() {
   try {
     const guildId = process.env.DISCORD_GUILD_ID;
     const botToken = process.env.DISCORD_BOT_TOKEN;
 
-    // Пробуем получить через Guild API (если есть бот и ID сервера)
+    // Try via Guild API (if bot token and server ID are available)
     if (guildId && botToken) {
       const res = await fetch(
         `https://discord.com/api/v10/guilds/${guildId}?with_counts=true`,
@@ -14,7 +14,7 @@ export async function GET() {
           headers: {
             Authorization: `Bot ${botToken}`,
           },
-          next: { revalidate: 120 }, // кэшируем на 2 минуты
+          next: { revalidate: 120 }, // cache for 2 minutes
         }
       );
 
@@ -34,7 +34,7 @@ export async function GET() {
       }
     }
 
-    // Fallback: пробуем через Invite API
+    // Fallback: try via Invite API
     const inviteCode = process.env.DISCORD_INVITE_CODE;
     if (inviteCode) {
       const res = await fetch(
@@ -59,7 +59,7 @@ export async function GET() {
       }
     }
 
-    // Если ничего не настроено — возвращаем базовую информацию
+    // If nothing is configured — return default info
     return NextResponse.json({
       name: "rizer001 Development",
       icon: null,

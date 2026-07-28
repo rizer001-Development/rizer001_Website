@@ -3,25 +3,25 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-// GET /api/chat/messages — получить историю сообщений из БД
+// GET /api/chat/messages — get message history from DB
 export async function GET() {
   try {
-    // Авто-очистка: удаляем сообщения старше 24 часов
+    // Auto-cleanup: delete messages older than 24 hours
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
     await prisma.chatMessage.deleteMany({
       where: { createdAt: { lt: oneDayAgo } },
     });
 
-    // Получаем последние 50 сообщений
+    // Get last 50 messages
     const messages = await prisma.chatMessage.findMany({
       orderBy: { createdAt: "desc" },
       take: 50,
     });
 
-    // Считаем общее количество
+    // Count total messages
     const totalCount = await prisma.chatMessage.count();
 
-    // Форматируем под клиент
+    // Format for client
     const formatted = messages.reverse().map((msg) => ({
       id: msg.id,
       content: msg.content,
@@ -42,7 +42,7 @@ export async function GET() {
   }
 }
 
-// DELETE /api/chat/messages — очистить историю (только админ)
+// DELETE /api/chat/messages — clear history (admin only)
 export async function DELETE() {
   const session = await getServerSession(authOptions);
   if (!session?.user || session.user.role !== "admin") {

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireAdminApi } from "@/lib/auth-utils";
 
-// GET /api/admin/settings — получить все настройки
+// GET /api/admin/settings — get all settings
 export async function GET() {
   const { error } = await requireAdminApi();
   if (error) return error;
@@ -13,7 +13,7 @@ export async function GET() {
     for (const s of settings) {
       map[s.key] = s.value;
     }
-    // Добавляем значения из .env как fallback (не перезаписываем то, что уже в БД)
+    // Add values from .env as fallback (don't overwrite DB values)
     const envKeys = [
       "DISCORD_WEBHOOK_URL",
       "DISCORD_BOT_TOKEN",
@@ -35,7 +35,7 @@ export async function GET() {
   }
 }
 
-// PUT /api/admin/settings — сохранить настройку
+// PUT /api/admin/settings — save a setting
 export async function PUT(req: NextRequest) {
   const { error } = await requireAdminApi();
   if (error) return error;
@@ -47,7 +47,7 @@ export async function PUT(req: NextRequest) {
     }
 
     if (value === "" || value === null) {
-      // Удаляем настройку (чтобы использовался .env)
+      // Delete setting (so .env is used instead)
       await prisma.setting.delete({ where: { key } }).catch(() => {});
     } else {
       await prisma.setting.upsert({

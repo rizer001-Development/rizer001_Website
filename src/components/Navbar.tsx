@@ -11,10 +11,10 @@ export default function Navbar() {
   const { data: session } = useSession();
 
   const links = [
-    { href: "/", label: "Главная" },
-    { href: "/news", label: "Новости" },
-    { href: "/#projects", label: "Проекты" },
-    { href: "/chat", label: "Чат" },
+    { href: "/", label: "Home" },
+    { href: "/news", label: "News" },
+    { href: "/#projects", label: "Projects" },
+    { href: "/chat", label: "Chat" },
   ];
 
   return (
@@ -60,7 +60,7 @@ export default function Navbar() {
                     color: "#fff",
                   }}
                 >
-                  Админка
+                  Admin
                 </Link>
               )}
               <button
@@ -68,7 +68,7 @@ export default function Navbar() {
                 className="text-sm text-muted hover:text-primary transition-colors"
                 style={{ color: "var(--text-muted)" }}
               >
-                Выйти
+                Sign out
               </button>
               {session.user?.image && (
                 <img
@@ -90,7 +90,7 @@ export default function Navbar() {
               }}
             >
               <i className="fa-brands fa-github mr-2"></i>
-              Войти
+              Sign in
             </button>
           )}
         </div>
@@ -99,7 +99,7 @@ export default function Navbar() {
         <button
           className="md:hidden flex flex-col gap-1.5 p-1 z-50"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Меню"
+          aria-label="Menu"
         >
           <span
             className="block w-6 h-0.5 bg-white rounded transition-all"
@@ -155,7 +155,7 @@ export default function Navbar() {
                         color: "#fff",
                       }}
                     >
-                      Админка
+                      Admin
                     </Link>
                   )}
                   <button
@@ -163,7 +163,7 @@ export default function Navbar() {
                     className="w-full text-center py-3 rounded-full font-medium"
                     style={{ color: "var(--text-muted)", border: "1px solid var(--border-color)" }}
                   >
-                    Выйти
+                    Sign out
                   </button>
                 </>
               ) : (
@@ -177,7 +177,7 @@ export default function Navbar() {
                   }}
                 >
                   <i className="fa-brands fa-github mr-2"></i>
-                  Войти через GitHub
+                  Sign in with GitHub
                 </button>
               )}
             </div>

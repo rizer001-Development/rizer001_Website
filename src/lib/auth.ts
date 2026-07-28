@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
       const providerId = account?.providerAccountId;
       if (providerId && (account?.provider === "github" || account?.provider === "discord")) {
         try {
-          // GitHub логин (username) берём из profile.login
+          // GitHub login (username) comes from profile.login
           const githubLogin = account?.provider === "github" ? (profile as any)?.login || null : null;
           const ownerUsername = process.env.OWNER_USERNAME;
           const isOwner = githubLogin && ownerUsername && githubLogin === ownerUsername;
@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (existingUser) {
-            // Owner всегда должен быть owner в БД (защита от снятия)
+            // Owner must always be owner in DB (protection against removal)
             const role = isOwner ? "owner" : existingUser.role;
             await prisma.user.update({
               where: { id: providerId },
@@ -68,9 +68,9 @@ export const authOptions: NextAuthOptions = {
         token.role = "user";
       }
 
-      // Всегда проверяем роль из БД при каждом запросе
-      // (а не только при логине, чтобы owner/admin роль применялась мгновенно)
-      // Используем token.id или token.sub (для старых токенов без id)
+      // Always check role from DB on every request
+      // (not just on login, so owner/admin role applies instantly)
+      // Use token.id or token.sub (for old tokens without id)
       const userId = token.id || token.sub;
       if (userId) {
         try {
@@ -81,7 +81,7 @@ export const authOptions: NextAuthOptions = {
 
           if (dbUser) {
             token.role = dbUser.role;
-            // Если этот пользователь — owner (проверка по username), но в БД роль не owner — исправляем
+            // If this user is owner (checked by username) but DB role is not owner — fix it
             const ownerUsername = process.env.OWNER_USERNAME;
             if (ownerUsername && dbUser.username === ownerUsername && dbUser.role !== "owner") {
               await prisma.user.update({
@@ -91,7 +91,7 @@ export const authOptions: NextAuthOptions = {
               token.role = "owner";
             }
           } else if (account) {
-            // Первый вход — пользователя нет в БД (редкий кейс)
+            // First login — user not in DB yet (rare edge case)
             const adminCount = await prisma.user.count({
               where: { role: { in: ["admin", "owner"] } },
             });
