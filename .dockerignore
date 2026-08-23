@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.idea
+.gradle
+*.iml
+.env
+.env.local
+.env.*.local
+server.log
+dev.db
+dev.db-journal
+java-backend

@@ -35,7 +35,7 @@ export default function ChatPage() {
   const [showPurgeModal, setShowPurgeModal] = useState(false);
   const [purgeConfirmed, setPurgeConfirmed] = useState(false);
   const [purging, setPurging] = useState(false);
-  const [cooldown, setCooldown] = useState(1); // Minimum cooldown = 1s
+  const [cooldown, setCooldown] = useState(0);
   const [queueDepth, setQueueDepth] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +46,7 @@ export default function ChatPage() {
   useEffect(() => {
     if (cooldown <= 0) return;
     const interval = setInterval(() => {
-      setCooldown((prev) => Math.max(1, prev - 1)); // Minimum 1s
+      setCooldown((prev) => Math.max(0, prev - 1));
     }, 2000);
     return () => clearInterval(interval);
   }, [cooldown > 0]);

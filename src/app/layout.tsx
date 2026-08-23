@@ -6,10 +6,10 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "rizer001 — Developer & Creator",
-  description: "Personal website of rizer001 — Minecraft plugin, mod and launcher developer.",
+  description: "Personal website of rizer001 — Software developer and open-source creator.",
   openGraph: {
     title: "rizer001 — Developer & Creator",
-    description: "Personal website of rizer001 — Minecraft plugin, mod and launcher developer.",
+    description: "Personal website of rizer001 — Software developer and open-source creator.",
     url: "https://github.com/rizer001",
     type: "website",
   },

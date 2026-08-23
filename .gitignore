@@ -45,3 +45,4 @@ java-backend/*.iml
 # IDE
 .idea/
 *.iml
+.gradle/

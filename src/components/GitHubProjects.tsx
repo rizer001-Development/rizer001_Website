@@ -1,4 +1,5 @@
 import GitHubProjectsClient from "./GitHubProjectsClient";
+import Link from "next/link";
 
 const langColors: Record<string, string> = {
   Java: "#b07219",
@@ -19,7 +20,7 @@ async function getRepos() {
     }
 
     const res = await fetch(
-      "https://api.github.com/users/rizer001/repos?sort=updated&per_page=20",
+      "https://api.github.com/users/rizer001/repos?sort=updated&per_page=100",
       { headers, next: { revalidate: 300 } }
     );
 
@@ -29,7 +30,7 @@ async function getRepos() {
     return repos
       .filter((r: any) => !r.fork && !r.archived)
       .sort((a: any, b: any) => b.stargazers_count - a.stargazers_count)
-      .slice(0, 9)
+      .slice(0, 6)
       .map((repo: any) => ({
         name: repo.name,
         description: repo.description || "No description",
@@ -46,5 +47,23 @@ async function getRepos() {
 export default async function GitHubProjects() {
   const repos = await getRepos();
 
-  return <GitHubProjectsClient repos={repos} />;
+  return (
+    <div>
+      <GitHubProjectsClient repos={repos} />
+      <div className="text-center mt-10">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold transition-all hover:scale-105"
+          style={{
+            background: "linear-gradient(135deg, var(--accent-cyan), var(--accent-purple))",
+            color: "#fff",
+            boxShadow: "0 4px 15px rgba(0, 212, 255, 0.3)",
+          }}
+        >
+          <i className="fa-solid fa-arrow-right"></i>
+          View all projects
+        </Link>
+      </div>
+    </div>
+  );
 }

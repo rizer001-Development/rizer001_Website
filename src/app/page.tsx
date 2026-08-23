@@ -1,8 +1,26 @@
 import Link from "next/link";
 import GitHubProjects from "@/components/GitHubProjects";
-import ContactForm from "@/components/ContactForm";
 
-export default function HomePage() {
+async function getRepoCount() {
+  try {
+    const headers: HeadersInit = {};
+    if (process.env.GITHUB_TOKEN) {
+      headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+    }
+    const res = await fetch("https://api.github.com/users/rizer001/repos?per_page=100", {
+      headers,
+      next: { revalidate: 300 },
+    });
+    if (!res.ok) return 0;
+    const repos = await res.json();
+    return repos.filter((r: any) => !r.fork && !r.archived).length;
+  } catch {
+    return 0;
+  }
+}
+
+export default async function HomePage() {
+  const repoCount = await getRepoCount();
   return (
     <div>
       {/* HERO SECTION */}
@@ -43,10 +61,10 @@ export default function HomePage() {
             rizer001
           </h1>
           <p className="text-xl font-semibold mb-4" style={{ color: "var(--accent-cyan)" }}>
-            Minecraft Developer &amp; Creator
+            Developer &amp; Creator
           </p>
           <p className="text-base mb-9" style={{ color: "var(--text-secondary)" }}>
-            Creating plugins, mods and launchers for Minecraft. Open-source enthusiast.
+            Creating various software, open-source enthusiast.
           </p>
 
           <div className="flex gap-3 justify-center flex-wrap mb-14">
@@ -83,18 +101,26 @@ export default function HomePage() {
 
           {/* Stats */}
           <div className="flex justify-center gap-12">
-            {[
-              { number: "6", label: "Projects" },
-              { number: "100", label: "% Java" },
-              { number: "1", label: "Team" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <span className="block text-4xl font-extrabold gradient-text">{stat.number}</span>
-                <span className="text-xs uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
-                  {stat.label}
-                </span>
-              </div>
-            ))}
+            <div className="text-center">
+              <span className="block text-4xl font-extrabold gradient-text">{repoCount || 0}</span>
+              <span className="text-xs uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+                Projects
+              </span>
+            </div>
+            <div className="text-center">
+              <span className="block text-4xl font-extrabold gradient-text">
+                <i className="fa-solid fa-award" style={{ fontSize: "2rem" }}></i>
+              </span>
+              <span className="text-xs uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+                High code quality
+              </span>
+            </div>
+            <div className="text-center">
+              <span className="block text-4xl font-extrabold gradient-text">1</span>
+              <span className="text-xs uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+                Team
+              </span>
+            </div>
           </div>
         </div>
 
@@ -127,7 +153,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
             {[
-              { icon: "fa-cubes", title: "Minecraft Development", desc: "Creating plugins for Paper/Spigot servers, mods for NeoForge and handy tools." },
+              { icon: "fa-cubes", title: "Software Development", desc: "Creating applications, tools and plugins across various platforms and languages." },
               { icon: "fa-cloud-arrow-up", title: "Open Source", desc: "All my projects are open source on GitHub. I believe in the power of community." },
               { icon: "fa-rocket", title: "Innovation", desc: "Always learning new technologies to build modern solutions." },
             ].map((card, i) => (
@@ -154,6 +180,8 @@ export default function HomePage() {
               {[
                 { icon: "fa-brands fa-java", label: "Java" },
                 { icon: "fa-brands fa-js", label: "JavaScript" },
+                { icon: "fa-solid fa-code", label: "TypeScript" },
+                { icon: "fa-solid fa-code", label: "Kotlin" },
                 { icon: "fa-brands fa-git-alt", label: "Git" },
                 { icon: "fa-solid fa-cube", label: "Paper API" },
                 { icon: "fa-solid fa-cubes", label: "NeoForge" },
@@ -272,7 +300,7 @@ export default function HomePage() {
           <p className="text-base mb-14" style={{ color: "var(--text-secondary)", maxWidth: "600px" }}>
             Where to find me
           </p>
-          <div className="flex justify-center gap-5 flex-wrap mb-16">
+          <div className="flex justify-center gap-5 flex-wrap">
             {[
               { href: "https://github.com/rizer001", icon: "fa-brands fa-github", label: "GitHub" },
               { href: "https://dsc.gg/rizer001-development", icon: "fa-brands fa-discord", label: "Discord" },
@@ -295,9 +323,6 @@ export default function HomePage() {
               </a>
             ))}
           </div>
-
-          {/* Contact Form */}
-          <ContactForm />
         </div>
       </section>
     </div>

@@ -12,7 +12,7 @@ export default function Footer() {
           <div>
             <span className="text-xl font-extrabold gradient-text">&lt;rizer001 /&gt;</span>
             <p className="mt-3 text-sm" style={{ color: "var(--text-secondary)", maxWidth: "300px" }}>
-              Minecraft Developer &amp; Creator. Open-source enthusiast.
+              Software Developer &amp; Creator. Open-source enthusiast.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 border-t text-center text-xs" style={{ borderColor: "var(--border-color)", color: "var(--text-muted)" }}>
-          <p>&copy; 2026 rizer001. Made with <i className="fa-solid fa-heart" style={{ color: "var(--accent-pink)" }}></i> and <i className="fa-solid fa-mug-saucer" style={{ color: "var(--accent-orange)" }}></i></p>
+          <p>rizer001. Open-source enthusiast.</p>
         </div>
       </div>
     </footer>

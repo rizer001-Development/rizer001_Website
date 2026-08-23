@@ -90,22 +90,6 @@ export const authOptions: NextAuthOptions = {
               });
               token.role = "owner";
             }
-          } else if (account) {
-            // First login — user not in DB yet (rare edge case)
-            const adminCount = await prisma.user.count({
-              where: { role: { in: ["admin", "owner"] } },
-            });
-            if (adminCount === 0) {
-              token.role = "admin";
-              await prisma.user.upsert({
-                where: { id: userId as string },
-                update: { role: "admin" },
-                create: {
-                  id: userId as string,
-                  role: "admin",
-                },
-              });
-            }
           }
         } catch (err) {
           console.error("Failed to read user role from DB:", err);

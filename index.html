@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rizer001 — Developer &amp; Creator</title>
+    <meta name="description" content="Личный сайт rizer001 — разработчик Minecraft плагинов, модов и лаунчеров." />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💻%3C/text%3E%3C/svg%3E" />
+    <meta property="og:title" content="rizer001 — Developer &amp; Creator" />
+    <meta property="og:description" content="Личный сайт rizer001 — разработчик Minecraft плагинов, модов и лаунчеров." />
+    <meta property="og:url" content="https://github.com/rizer001" />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#00d4ff" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <!-- Particle Canvas Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">&lt;rizer001 /&gt;</a>
+            <div class="nav-links" id="nav-links">
+                <a href="#about" class="nav-link">Обо мне</a>
+                <a href="#projects" class="nav-link">Проекты</a>
+                <a href="#discord" class="nav-link">Discord</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="nav-overlay" id="nav-overlay"></div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-avatar-wrapper">
+                <div class="hero-avatar-glow"></div>
+                <div class="hero-avatar">
+                    <span class="hero-avatar-text">R</span>
+                </div>
+            </div>
+            <h1 class="hero-title">rizer001</h1>
+            <p class="hero-subtitle">Minecraft Developer &amp; Creator</p>
+            <p class="hero-description">
+                Создаю плагины, моды и лаунчеры для Minecraft. Open-source энтузиаст.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fa-solid fa-code"></i> Проекты
+                </a>
+                <a href="https://github.com/rizer001" target="_blank" rel="noopener" class="btn btn-outline">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+                <a href="https://dsc.gg/rizer001-development" target="_blank" rel="noopener" class="btn btn-outline btn-discord">
+                    <i class="fa-brands fa-discord"></i> Discord
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="6">0</span>
+                    <span class="stat-label">Проектов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="100">0</span>
+                    <span class="stat-label">% Java</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="1">0</span>
+                    <span class="stat-label">Команда</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Листай вниз</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="section about" id="about">
+        <div class="section-container">
+            <h2 class="section-title reveal">
+                <span class="section-title-icon"><i class="fa-solid fa-user"></i></span>
+                Обо мне
+            </h2>
+            <p class="section-subtitle reveal">
+                Разработчик, который превращает идеи в код
+            </p>
+            <div class="about-grid">
+                <div class="about-card reveal">
+                    <div class="about-card-icon">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <h3>Minecraft разработка</h3>
+                    <p>
+                        Создаю плагины для Paper/Spigot серверов, моды для NeoForge,
+                        и удобные инструменты для игроков и администраторов.
+                    </p>
+                </div>
+                <div class="about-card reveal">
+                    <div class="about-card-icon">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <h3>Open Source</h3>
+                    <p>
+                        Все мои проекты с открытым исходным кодом на GitHub.
+                        Верю в силу сообщества и совместную разработку.
+                    </p>
+                </div>
+                <div class="about-card reveal">
+                    <div class="about-card-icon">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h3>Инновации</h3>
+                    <p>
+                        Постоянно изучаю новые технологии и подходы,
+                        чтобы создавать современные и производительные решения.
+                    </p>
+                </div>
+            </div>
+
+            <div class="skills reveal">
+                <h3 class="skills-title">Технологии</h3>
+                <div class="skills-list">
+                    <span class="skill-tag"><i class="fa-brands fa-java"></i> Java</span>
+                    <span class="skill-tag"><i class="fa-brands fa-js"></i> JavaScript</span>
+                    <span class="skill-tag"><i class="fa-brands fa-git-alt"></i> Git</span>
+                    <span class="skill-tag"><i class="fa-solid fa-cube"></i> Paper API</span>
+                    <span class="skill-tag"><i class="fa-solid fa-cubes"></i> NeoForge</span>
+                    <span class="skill-tag"><i class="fa-solid fa-database"></i> SQL</span>
+                    <span class="skill-tag"><i class="fa-brands fa-gradle"></i> Gradle</span>
+                    <span class="skill-tag"><i class="fa-solid fa-terminal"></i> Bash</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section class="section projects" id="projects">
+        <div class="section-container">
+            <h2 class="section-title reveal">
+                <span class="section-title-icon"><i class="fa-solid fa-folder-open"></i></span>
+                Проекты
+            </h2>
+            <p class="section-subtitle reveal">
+                Мои открытые проекты на GitHub
+            </p>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Will be populated by GitHub API -->
+                <div class="project-card skeleton">
+                    <div class="skeleton-box" style="height: 1.5rem; width: 60%;"></div>
+                    <div class="skeleton-box" style="height: 1rem; width: 100%;"></div>
+                    <div class="skeleton-box" style="height: 1rem; width: 80%;"></div>
+                    <div class="skeleton-box" style="height: 1.5rem; width: 40%;"></div>
+                </div>
+                <div class="project-card skeleton">
+                    <div class="skeleton-box" style="height: 1.5rem; width: 55%;"></div>
+                    <div class="skeleton-box" style="height: 1rem; width: 100%;"></div>
+                    <div class="skeleton-box" style="height: 1rem; width: 75%;"></div>
+                    <div class="skeleton-box" style="height: 1.5rem; width: 35%;"></div>
+                </div>
+                <div class="project-card skeleton">
+                    <div class="skeleton-box" style="height: 1.5rem; width: 65%;"></div>
+                    <div class="skeleton-box" style="height: 1rem; width: 100%;"></div>
+                    <div class="skeleton-box" style="height: 1rem; width: 70%;"></div>
+                    <div class="skeleton-box" style="height: 1.5rem; width: 45%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DISCORD ===== -->
+    <section class="section discord" id="discord">
+        <div class="section-container">
+            <div class="discord-wrapper reveal">
+                <div class="discord-content">
+                    <div class="discord-icon">
+                        <i class="fa-brands fa-discord"></i>
+                    </div>
+                    <h2 class="discord-title">Discord Сервер</h2>
+                    <p class="discord-description">
+                        Присоединяйся к моему Discord серверу! Обсуждаем разработку,
+                        Minecraft, проекты и просто общаемся. Буду рад видеть каждого!
+                    </p>
+                    <div class="discord-features">
+                        <div class="discord-feature">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Поддержка по проектам</span>
+                        </div>
+                        <div class="discord-feature">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Обновления и анонсы</span>
+                        </div>
+                        <div class="discord-feature">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Общение с разработчиком</span>
+                        </div>
+                        <div class="discord-feature">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Тестирование новых функций</span>
+                        </div>
+                    </div>
+                    <a href="https://dsc.gg/rizer001-development" target="_blank" rel="noopener" class="btn btn-discord-join">
+                        <i class="fa-brands fa-discord"></i> Присоединиться
+                    </a>
+                </div>
+                <div class="discord-preview">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" class="discord-preview-img" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section contact" id="contact">
+        <div class="section-container">
+            <h2 class="section-title reveal">
+                <span class="section-title-icon"><i class="fa-solid fa-link"></i></span>
+                Контакты
+            </h2>
+            <p class="section-subtitle reveal">
+                Где меня можно найти
+            </p>
+            <div class="contact-links reveal">
+                <a href="https://github.com/rizer001" target="_blank" rel="noopener" class="contact-link">
+                    <i class="fa-brands fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://dsc.gg/rizer001-development" target="_blank" rel="noopener" class="contact-link">
+                    <i class="fa-brands fa-discord"></i>
+                    <span>Discord</span>
+                </a>
+                <a href="https://t.me/rizer001" target="_blank" rel="noopener" class="contact-link">
+                    <i class="fa-brands fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+                <a href="https://github.com/rizer001?tab=repositories" target="_blank" rel="noopener" class="contact-link">
+                    <i class="fa-brands fa-github"></i>
+                    <span>Все репозитории</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="footer-logo">&lt;rizer001 /&gt;</span>
+                    <p class="footer-desc">
+                        Minecraft Developer &amp; Creator. Open-source энтузиаст.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <h4>Навигация</h4>
+                    <a href="#about">Обо мне</a>
+                    <a href="#projects">Проекты</a>
+                    <a href="#discord">Discord</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <div class="footer-social">
+                    <h4>Соцсети</h4>
+                    <div class="footer-social-icons">
+                        <a href="https://github.com/rizer001" target="_blank" rel="noopener" aria-label="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://dsc.gg/rizer001-development" target="_blank" rel="noopener" aria-label="Discord">
+                            <i class="fa-brands fa-discord"></i>
+                        </a>
+                        <a href="https://t.me/rizer001" target="_blank" rel="noopener" aria-label="Telegram">
+                            <i class="fa-brands fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 rizer001. Сделано с <i class="fa-solid fa-heart"></i> и <i class="fa-solid fa-mug-saucer"></i></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Наверх">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
