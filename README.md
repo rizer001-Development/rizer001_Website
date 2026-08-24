@@ -19,7 +19,7 @@
     <a href="https://www.typescriptlang.org/">
       <img src="https://img.shields.io/badge/TypeScript-5-blue" alt="TypeScript" />
     </a>
-    <img src="https://img.shields.io/badge/status-Alpha-red" alt="Development status: Alpha" />
+    <img src="https://img.shields.io/badge/status-Beta-orange" alt="Development status: Beta" />
   </p>
   
   <br />
