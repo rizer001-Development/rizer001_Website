@@ -29,5 +29,8 @@
     "prisma": "^6.4.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0"
+  },
+  "overrides": {
+    "nanoid": "^3.3.18"
   }
 }
