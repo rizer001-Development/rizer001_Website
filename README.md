@@ -7,7 +7,7 @@
   ### Personal website of rizer001 — Minecraft Developer &amp; Creator
   
   <p align="center">
-    <a href="https://github.com/rizer001/rizer001_Website/blob/main/LICENSE">
+    <a href="https://github.com/rizer001-Development/rizer001_Website/blob/main/LICENSE">
       <img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="License: AGPL v3" />
     </a>
     <a href="https://nextjs.org/">
@@ -89,7 +89,7 @@ Personal website with Discord and GitHub integration. Features:
 
 ### 1. Clone
 ```bash
-git clone https://github.com/rizer001/rizer001_Website.git
+git clone https://github.com/rizer001-Development/rizer001_Website.git
 cd rizer001_Website
 ```
 
