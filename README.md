@@ -1,37 +1,20 @@
-<div align="center">
-  <br />
-  <img src="https://avatars.githubusercontent.com/u/191371167?v=4" width="120" style="border-radius: 50%;" alt="rizer001" />
-  
-  # rizer001_Website
-  
-  ### Personal website of rizer001 — Minecraft Developer &amp; Creator
-  
-  <p align="center">
-    <a href="https://github.com/rizer001-Development/rizer001_Website/blob/main/LICENSE">
-      <img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="License: AGPL v3" />
-    </a>
-    <a href="https://nextjs.org/">
-      <img src="https://img.shields.io/badge/Next.js-15-black" alt="Next.js 15" />
-    </a>
-    <a href="https://www.prisma.io/">
-      <img src="https://img.shields.io/badge/Prisma-SQLite-green" alt="Prisma" />
-    </a>
-    <a href="https://www.typescriptlang.org/">
-      <img src="https://img.shields.io/badge/TypeScript-5-blue" alt="TypeScript" />
-    </a>
-    <img src="https://img.shields.io/badge/status-Beta-orange" alt="Development status: Beta" />
-  </p>
-  
-  <br />
-</div>
+# rizer001_Website
 
-### 📄 Organization Docs
+**Personal website of rizer001 — Minecraft Developer & Creator**
+
+[![License: AGPL v3](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://github.com/rizer001-Development/rizer001_Website/blob/main/LICENSE)
+[![Next.js 15](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-SQLite-green)](https://www.prisma.io/)
+[![TypeScript 5](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+![Development status](https://img.shields.io/badge/status-Beta-orange)
+
+### Organization Docs
 
 [![Guide](https://img.shields.io/badge/Guide-rizer001--Development-00AEFF)](https://github.com/rizer001-Development/.github/blob/main/GUIDE.md) · [![Contributing](https://img.shields.io/badge/Contributing-rizer001--Development-4CAF50)](https://github.com/rizer001-Development/.github/blob/main/CONTRIBUTING.md) · [![Security](https://img.shields.io/badge/Security-rizer001--Development-D9534F)](https://github.com/rizer001-Development/.github/blob/main/SECURITY.md) · [![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-rizer001--Development-5BC0DE)](https://github.com/rizer001-Development/.github/blob/main/CODE_OF_CONDUCT.md)
 
 ---
 
-## 📋 Overview
+## Overview
 
 Personal website with Discord and GitHub integration. Features:
 
@@ -41,7 +24,7 @@ Personal website with Discord and GitHub integration. Features:
 - **Admin Panel** — user management, roles (Owner/Admin), news, Discord webhook config
 - **Authentication** — login via GitHub OAuth
 
-## 🚀 Tech Stack
+## Tech Stack
 
 | Technology | Version | Purpose |
 |-----------|--------|---------|
@@ -53,20 +36,20 @@ Personal website with Discord and GitHub integration. Features:
 | **NextAuth** | 4 | OAuth (GitHub) |
 | **PostgreSQL** | — | Database |
 
-## ✨ Features
+## Features
 
-### 🔐 Authentication
+### Authentication
 - GitHub OAuth login
 - Role system: **Owner** (irremovable), **Admin**, **User**
 - First user becomes Owner automatically
 
-### 👑 Admin Panel
+### Admin Panel
 - **News** — create, publish, delete posts
 - **Discord** — configure Webhook URL, send test messages
 - **Users** — list, assign/remove admin roles
 - **GitHub Logs** — activity feed with pagination & repo tabs
 
-### 💬 Discord Chat
+### Discord Chat
 - Server preview (online status, member count)
 - Send messages via webhook
 - Message history in DB (auto-cleanup after 24h)
@@ -74,14 +57,14 @@ Personal website with Discord and GitHub integration. Features:
 - Send queue (1 msg/sec for Discord)
 - History purge with confirmation
 
-### 📊 GitHub Activity
+### GitHub Activity
 - Event feed (Push, Issue, PR, Release, Star, Fork)
 - Per-repository tabs
 - 10-events pagination
 - Commit messages via Compare API
 - Rate limit indicator
 
-## 🛠️ Setup
+## Setup
 
 ### Prerequisites
 - Node.js 18+
@@ -141,20 +124,20 @@ npm start -- -p 3003
 2. Homepage URL: `http://localhost:3003`
 3. Authorization callback URL: `http://localhost:3003/api/auth/callback/github`
 
-## 🔑 Environment Variables
+## Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `GITHUB_CLIENT_ID` | ✅ | GitHub OAuth Client ID |
-| `GITHUB_CLIENT_SECRET` | ✅ | GitHub OAuth Client Secret |
-| `DATABASE_URL` | ✅ | SQLite path (`file:./dev.db`) |
-| `OWNER_USERNAME` | ✅ | GitHub username of the site owner |
-| `GITHUB_TOKEN` | ❌ | GitHub API token (for commit display) |
-| `GITHUB_USERNAME` | ❌ | GitHub username (default: rizer001) |
-| `DISCORD_WEBHOOK_URL` | ❌ | Discord webhook URL |
-| `DISCORD_INVITE_CODE` | ❌ | Discord server invite code |
+| `GITHUB_CLIENT_ID` | yes | GitHub OAuth Client ID |
+| `GITHUB_CLIENT_SECRET` | yes | GitHub OAuth Client Secret |
+| `DATABASE_URL` | yes | SQLite path (`file:./dev.db`) |
+| `OWNER_USERNAME` | yes | GitHub username of the site owner |
+| `GITHUB_TOKEN` | no | GitHub API token (for commit display) |
+| `GITHUB_USERNAME` | no | GitHub username (default: rizer001) |
+| `DISCORD_WEBHOOK_URL` | no | Discord webhook URL |
+| `DISCORD_INVITE_CODE` | no | Discord server invite code |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -184,23 +167,19 @@ prisma/
 └── schema.prisma       # Database schema
 ```
 
-## ⚖️ License
+## License
 
 Licensed under the **GNU Affero General Public License v3.0** (AGPLv3).
 
 This means:
-- ✅ You may use, modify, and redistribute the code
-- ✅ If you modify and run it on a server, you must disclose your changes
-- ❌ You may not use it in proprietary projects without open-sourcing your changes
+- You may use, modify, and redistribute the code
+- If you modify and run it on a server, you must disclose your changes
+- You may not use it in proprietary projects without open-sourcing your changes
 
 Full text: [LICENSE](./LICENSE)
 
 ---
 
-<div align="center">
-  <p>
-    <a href="https://github.com/rizer001">GitHub</a> ·
-    <a href="https://dsc.gg/rizer001-development">Discord</a>
-  </p>
-  <p>© 2026 rizer001</p>
-</div>
+Links: [GitHub](https://github.com/rizer001) · [Discord](https://dsc.gg/rizer001-development)
+
+© 2026 rizer001
